@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import mainContent from '@/components/mainContent.vue';
-import loginApp from '@/components/loginApp.vue';
+import loginApp from '@/components/login/loginApp.vue';
+import allInventario from '@/components/inventary/allInventario';
+import equipoSelected from '@/components/inventary/equipoSelected';
+import registerUser from '@/components/login/registerUser.vue';
+import tareasList from '@/components/task/tareasList';
+import tareaSelected from '@/components/task/tareaSelected';
 
 const routes = [
     {
@@ -10,10 +15,37 @@ const routes = [
         
     },
     {
+        path: '/register',
+        name: 'register',
+        component: registerUser
+        
+    },
+    {
         path: '/main',
         name: 'mainContent',
         component: mainContent
-    }
+    },
+    {
+        path: '/inventary',
+        name: 'inventary',
+        component: allInventario
+    },
+    {
+        path: '/equipoSelected',
+        name: 'equipoSelected',
+        component: equipoSelected
+    },
+    {
+        path: '/tareaSelected',
+        name: 'tareaSelected',
+        component: tareaSelected
+    },
+    {
+        path: '/tareasList',
+        name: 'tareasList',
+        component: tareasList
+    },
+    
 ]
 
 const router = createRouter({

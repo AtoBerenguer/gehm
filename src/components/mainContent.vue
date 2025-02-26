@@ -1,5 +1,7 @@
 <template>
     <div>
+        <HeaderComponent></HeaderComponent>
+
         <header>
             <h1>Gestión de Tareas</h1>
         </header>
@@ -25,7 +27,13 @@
 </template>
 
 <script>
+import HeaderComponent from './shared/headerComponent.vue';
+
 export default {
+    name: 'MainContent',
+    components: {
+        HeaderComponent
+    },
     data() {
         return {
             tareas: [
