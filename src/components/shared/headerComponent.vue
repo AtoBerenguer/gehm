@@ -7,7 +7,7 @@
                 <li class="nav-item"><router-link to="/inventary" class="nav-link">Inventario</router-link></li>
                 <li class="nav-item"><router-link to="/tareasList" class="nav-link">Ordenes</router-link></li>
                 <li class="nav-item"><router-link to="/" class="nav-link">Almacen</router-link></li>
-                <li class="nav-item"><router-link to="/" class="nav-link">Cerrar sesión</router-link></li>
+                <li class="nav-item"><router-link to="/" class="nav-link">LogOut</router-link></li>
             </ul>
         </nav>
     </header>
@@ -18,7 +18,7 @@ export default {
     name: 'HeaderComponent',
     data() {
         return {
-            text: 'Gestión de Tareas Script'
+            text: 'Gestión de Tareas'
         };
     }
 }

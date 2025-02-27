@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "tipologia": "Laptop",
+        "marca": "Dell",
+        "modelo": "XPS 13",
+        "numeroSerie": "12345"
+    },
+    {
+        "id": 2,
+        "tipologia": "Desktop",
+        "marca": "HP",
+        "modelo": "EliteDesk 800",
+        "numeroSerie": "67890"
+    },
+    {
+        "id": 3,
+        "tipologia": "Tablet",
+        "marca": "Apple",
+        "modelo": "iPad Pro",
+        "numeroSerie": "24680"
+    }
+]
