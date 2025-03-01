@@ -36,6 +36,7 @@ export default {
     mounted() {
         axios.get('/equipos.json').then(response => {
             this.equipos = response.data;
+            console.log(this.equipos);
         });
     }
 }
