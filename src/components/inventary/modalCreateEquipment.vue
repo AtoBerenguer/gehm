@@ -53,13 +53,12 @@ export default {
         async cargarCategorias() {
             const response = await axios.get("http://localhost/BDD-MedicalEquipment/controller/categories/getAllCategories.php");
             this.categorias = response.data;
-            console.log(this.categorias);
+            
 
         },
         async cargarModelos() {
             const response = await axios.get("http://localhost/BDD-MedicalEquipment/controller/models/getAllModels.php");
             this.modelos = response.data;
-            console.log(this.modelos);
 
         },
         async guardarEquipo() {
