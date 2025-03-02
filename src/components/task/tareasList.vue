@@ -112,7 +112,7 @@
   
   th {
     background: #1abc9c;
-    border-radius: 8px;
+    
     font-weight: bold;
   }
   
