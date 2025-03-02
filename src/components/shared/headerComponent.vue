@@ -5,7 +5,7 @@
         <nav class="nav">
             <ul class="nav-list">
                 <li class="nav-item"><router-link to="/inventary" class="nav-link">Inventario</router-link></li>
-                <li class="nav-item"><router-link to="/tareasList" class="nav-link">Ordenes</router-link></li>
+                <li class="nav-item"><router-link to="/main" class="nav-link">Ordenes</router-link></li>
                 <li class="nav-item"><router-link to="/" class="nav-link">Almacen</router-link></li>
                 <li class="nav-item"><router-link to="/" class="nav-link">LogOut</router-link></li>
             </ul>

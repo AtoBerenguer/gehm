@@ -1,18 +1,18 @@
 <template>
     <div class="modal">
         <div class="modal-content">
-            <h2>Agregar Equipo</h2>
+            <h2>Crear equipo</h2>
 
             <label>Número de Serie:</label>
             <input v-model="nuevoEquipo.numero_serie" type="text">
-            <br>
+            <hr>
             <label>Categoría:</label>
             <select v-model="nuevoEquipo.categoria_id">
                 <option v-for="categoria in categorias" :key="categoria.id_categoria" :value="categoria.id_categoria">
                     {{ categoria.id_categoria }} {{ categoria.nombre_categoria }}
                 </option>
             </select>
-
+            <hr>
             <label>Modelo:</label>
             <select v-model="nuevoEquipo.modelo_id">
                 <option v-for="modelo in modelos" :key="modelo.id_modelo" :value="modelo.id_modelo">
@@ -92,7 +92,7 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos del modal */
+
 .modal {
     position: fixed;
     top: 0;
@@ -119,25 +119,5 @@ export default {
     justify-content: space-between;
 }
 
-.btn {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
-.btn-primary {
-    background: blue;
-    color: white;
-}
-
-.btn-success {
-    background: green;
-    color: white;
-}
-
-.btn-danger {
-    background: red;
-    color: white;
-}
 </style>

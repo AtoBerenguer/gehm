@@ -2,6 +2,7 @@
     <headerComponent></headerComponent>
     <div>
         <h2>Inventario de Equipos</h2>
+        
         <button @click="mostrarModal = true">Crear Equipo</button>
         <table>
             <thead>
