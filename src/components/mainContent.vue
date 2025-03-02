@@ -1,38 +1,21 @@
 <template>
     <div>
         <HeaderComponent></HeaderComponent>
+        <tareasList />
 
-        <header>
-            <h1>Gestión de Tareas</h1>
-        </header>
-        <main>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Tarea</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="tarea in tareas" :key="tarea.id">
-                        <td>{{ tarea.id }}</td>
-                        <td>{{ tarea.nombre }}</td>
-                        <td>{{ tarea.estado }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </main>
+        
     </div>
 </template>
 
 <script>
 import HeaderComponent from './shared/headerComponent.vue';
+import tareasList from './task/tareasList.vue';
 
 export default {
     name: 'MainContent',
     components: {
-        HeaderComponent
+        HeaderComponent,
+        tareasList
     },
     data() {
         return {

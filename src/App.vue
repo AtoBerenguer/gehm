@@ -16,7 +16,7 @@ export default {
 body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #f0f2f5;
+  background-color: #000000;
   color: #333;
 }
 
@@ -31,7 +31,7 @@ body {
 
 .app-container {
   padding: 20px;
-  background-color: #fff;
+  background-color: #000000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
