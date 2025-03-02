@@ -1,4 +1,5 @@
 <template>
+    <headerComponent></headerComponent>
     <div>
         <h2>Inventario de Equipos</h2>
         <button @click="mostrarModal = true">Crear Equipo</button>
@@ -27,11 +28,13 @@
 </template>
 
 <script>
+import headerComponent from '../shared/headerComponent.vue'
 import axios from 'axios'
 import modalCreateEquipment from './modalCreateEquipment.vue'
 export default {
     name: 'allInventario',
     components: {
+        headerComponent,
         modalCreateEquipment
     },
     data() {
