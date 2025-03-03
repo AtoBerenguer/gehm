@@ -36,48 +36,9 @@ body {
   border-radius: 8px;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-}
 
-th, td {
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-}
 
-th {
-  background-color: #4CAF50;
-  color: white;
-}
 
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
 
-tr:hover {
-  background-color: #ddd;
-}
 
-/* Botón */
-button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 10px 2px;
-  transition-duration: 0.4s;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: white;
-  color: black;
-  border: 2px solid #4CAF50;
-}
 </style>

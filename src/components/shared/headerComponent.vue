@@ -26,7 +26,7 @@ export default {
     name: "HeaderComponent",
     data() {
         return {
-            text: "Gestión de Tareas",
+            text: "GMHM",
         };
     },
 };
@@ -43,6 +43,9 @@ export default {
     align-items: center;
     width: 80%;
     margin: auto;
+}
+h2{
+width: 70%;
 }
 
 .title {

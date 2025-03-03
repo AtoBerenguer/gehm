@@ -76,7 +76,7 @@
   
           console.log(response.data);
           alert("Equipo agregado correctamente");
-          this.$emit("cerrarModal"); // Cierra el modal
+          this.$emit("cerrarModal");
         } catch (error) {
           console.error("Error al guardar el equipo:", error);
         }
@@ -92,14 +92,14 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7); /* Fondo oscuro para resaltar el modal */
+    background: rgba(0, 0, 0, 0.7); 
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
   .modal-content {
-    background: #34495e; /* Fondo oscuro para resaltar el modal */
+    background: #34495e; 
     padding: 20px;
     border-radius: 10px;
     width: 500px;
@@ -110,7 +110,7 @@
   
   h2 {
     font-size: 1.8rem;
-    color: #1abc9c; /* Color brillante para el título */
+    color: #1abc9c; 
     margin-bottom: 15px;
   }
   
@@ -135,7 +135,7 @@
   
   input:focus, select:focus {
     outline: none;
-    border: 2px solid #1abc9c; /* Resalta con verde al enfocar */
+    border: 2px solid #1abc9c; 
   }
   
   .modal-buttons {
@@ -153,7 +153,7 @@
   }
   
   button:first-child {
-    background-color: #1abc9c; /* Color verde para el botón de guardar */
+    background-color: #1abc9c; 
     color: white;
   }
   
@@ -162,7 +162,7 @@
   }
   
   button:last-child {
-    background-color: #e74c3c; /* Rojo para cancelar */
+    background-color: #e74c3c; 
     color: white;
   }
   

@@ -39,7 +39,7 @@
   }
   
   .footer-nav a {
-    color: #1abc9c; /* Verde brillante */
+    color: #1abc9c; 
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease-in-out;

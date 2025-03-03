@@ -101,18 +101,36 @@ button:hover {
     transform: scale(1.05);
 }
 
+
+
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    border-radius: 8px;
-    overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 80%;
 }
 
-th, td {
-    padding: 10px;
-    text-align: left;
-    color: #ecf0f1;
+th:first-child {
+  border-top-left-radius: 10px;
+}
+
+th:last-child {
+  border-top-right-radius: 10px;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  color: #ecf0f1;
+  border: 1px solid #ddd;
 }
 
 th {

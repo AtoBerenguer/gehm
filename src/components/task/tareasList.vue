@@ -2,33 +2,36 @@
   <div class="container">
     <div class="task-list">
       <h2>Lista de Tareas</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Num Ot</th>
-            <th>Fecha</th>
-            <th>Equipo</th>
-            <th>Nombre Equipo</th>
-            <th>Avería</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(tarea, index) in tareas" :key="tarea.id" :class="index % 2 === 0 ? 'par' : 'impar'">
-            <td class="numOt">{{ tarea.numOt }}</td>
-            <td>{{ tarea.fecha }}</td>
-            <td>{{ tarea.equipoId }}</td>
-            <td>{{ tarea.nombreEquipo }}</td>
-            <td class="averia">{{ tarea.averia }}</td>
-            <td>{{ tarea.estado ? 'Completada' : 'Pendiente' }}</td>
-            <td>
-              <button @click="toggleEstado(tarea.id)" class="btn-toggle">Cambiar estado</button>
-              <button @click="eliminarTarea(tarea.id)" class="btn-delete">Eliminar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Num Ot</th>
+              <th>Fecha</th>
+              <th>Equipo</th>
+              <th>Nombre Equipo</th>
+              <th>Avería</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(tarea, index) in tareas" :key="tarea.id" :class="index % 2 === 0 ? 'par' : 'impar'">
+              <td>{{ tarea.numOt }}</td>
+              <td>{{ tarea.fecha }}</td>
+              <td>{{ tarea.equipoId }}</td>
+              <td>{{ tarea.nombreEquipo }}</td>
+              <td class="averia">{{ tarea.averia }}</td>
+              <td>{{ tarea.estado ? 'Completada' : 'Pendiente' }}</td>
+              <td>
+                <button @click="toggleEstado(tarea.id)" class="btn-toggle">Cambiar estado</button>
+                <button @click="eliminarTarea(tarea.id)" class="btn-delete">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <div class="task-input">
         <input v-model="nuevaTarea" placeholder="Añadir nueva tarea" />
         <button @click="agregarTarea" class="btn-add">Agregar</button>
@@ -87,28 +90,46 @@ export default {
   align-items: center;
   width: 80%;
   margin: auto;
-  margin-top: 1rem;
+  margin-top: 1rem; 
 }
 
 .task-list {
-  padding: 20px;
+ padding: 20px;
   border-radius: 12px;
-  text-align: center;
+  text-align: center; 
 }
 
 h2 {
   color: #ecf0f1;
   margin-bottom: 10px;
   font-size: 2rem;
-  font-weight: bold;
+  font-weight: bold; 
+}
+
+.table-container {
+  max-width: 100%;
+  
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 1rem;
-  border-radius: 8px;
-  overflow: hidden;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+th:first-child {
+  border-top-left-radius: 10px;
+}
+
+th:last-child {
+  border-top-right-radius: 10px;
+}
+
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+
+tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
 }
 
 th,
@@ -116,8 +137,8 @@ td {
   padding: 12px;
   text-align: left;
   color: #ecf0f1;
+  border: 1px solid #ddd;
 }
-
 th {
   background: #1abc9c;
   font-weight: bold;

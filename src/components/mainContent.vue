@@ -32,26 +32,6 @@ export default {
 </script>
 
 <style scoped>
-header {
-    background-color: #f8f9fa;
-    padding: 1rem;
-    text-align: center;
-}
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-}
-
-th, td {
-    border: 1px solid #dee2e6;
-    padding: 0.75rem;
-    text-align: left;
-}
-
-th {
-    background-color: #e9ecef;
-}
 </style>
 
