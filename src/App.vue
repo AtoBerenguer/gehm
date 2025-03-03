@@ -1,13 +1,34 @@
 <template>
   <div id="app" class="app-container">
+    <HeaderComponent v-if="!isLoginRoute"></HeaderComponent>
     <router-view></router-view>
+    <FooterComponent v-if="!isLoginRoute"></FooterComponent>
   </div>
 </template>
 
 <script>
+import HeaderComponent from './components/shared/headerComponent.vue';
+import FooterComponent from './components/shared/footerComponent.vue';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+ 
+
+
 export default {
   name: 'App',
-  components: {}
+  
+  components: {
+    HeaderComponent,
+    FooterComponent
+  },
+  setup() {
+    const route = useRoute();
+    const isLoginRoute = computed(()=>route.path === '/');
+    return {
+      isLoginRoute
+    };
+  },
+  
 }
 </script>
 
