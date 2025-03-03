@@ -1,5 +1,4 @@
 <template>
-    <headerComponent></headerComponent>
     <div class="container">
         <h2 class="title">Inventario de Equipos</h2>
         
@@ -29,14 +28,13 @@
 </template>
 
 <script>
-import headerComponent from '../shared/headerComponent.vue'
 import axios from 'axios'
 import modalCreateEquipment from './modalCreateEquipment.vue'
 
 export default {
     name: 'allInventario',
     components: {
-        headerComponent,
+        
         modalCreateEquipment
     },
     data() {
@@ -73,7 +71,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80%;
+    max-width: 80%;
     margin: auto;
     margin-top: 20px;
 }
@@ -85,6 +83,12 @@ export default {
     font-weight: bold;
 }
 
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 80%;
+  
+}
 button {
     background: #1abc9c;
     color: white;
@@ -103,11 +107,6 @@ button:hover {
 
 
 
-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  width: 80%;
-}
 
 th:first-child {
   border-top-left-radius: 10px;
