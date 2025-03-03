@@ -2,7 +2,7 @@
     <div>
         <HeaderComponent></HeaderComponent>
         <tareasList />
-
+        <FooterComponent></FooterComponent>
         
     </div>
 </template>
@@ -10,12 +10,14 @@
 <script>
 import HeaderComponent from './shared/headerComponent.vue';
 import tareasList from './task/tareasList.vue';
+import FooterComponent from './shared/footerComponent.vue';
 
 export default {
     name: 'MainContent',
     components: {
         HeaderComponent,
-        tareasList
+        tareasList,
+        FooterComponent
     },
     data() {
         return {
