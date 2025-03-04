@@ -1,43 +1,38 @@
 <template>
   <div class="container">
-    <div class="task-list">
+    <div class="listaTareas">
       <h2>Lista de Tareas</h2>
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Num Ot</th>
-              <th>Fecha</th>
-              <th>Equipo</th>
-              <th>Nombre Equipo</th>
-              <th>Avería</th>
-              <th>Estado</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(tarea, index) in tareas" :key="tarea.id" :class="index % 2 === 0 ? 'par' : 'impar'">
-              <td>{{ tarea.numOt }}</td>
-              <td>{{ tarea.fecha }}</td>
-              <td>{{ tarea.equipoId }}</td>
-              <td>{{ tarea.nombreEquipo }}</td>
-              <td class="averia">{{ tarea.averia }}</td>
-              <td>{{ tarea.estado ? 'Completada' : 'Pendiente' }}</td>
-              <td>
-                <button @click="toggleEstado(tarea.id)" class="btn-toggle">Cambiar estado</button>
-                <button @click="eliminarTarea(tarea.id)" class="btn-delete">Eliminar</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="containerLista">
+        <div class="lista-titulos">
+          <div class="lista titulo">Fecha</div>
+          <div class="lista titulo">Num Ot</div>
+          <div class="lista titulo">Equipo</div>
+          <div class="lista titulo">Nombre Equipo</div>
+          <div class="lista titulo">Avería</div>
+          <div class="lista titulo">Estado</div>
+          <div class="lista titulo">Acciones</div>
+        </div>
+        <div v-for="(tarea, index) in tareas" :key="tarea.id" :class="['lista-fila', index % 2 === 0 ? 'par' : 'impar']">
+          <div class="lista">{{ tarea.numOt }}</div>
+          <div class="lista">{{ tarea.fecha }}</div>
+          <div class="lista">{{ tarea.equipoId }}</div>
+          <div class="lista nombreEquipo" >{{ tarea.nombreEquipo }}</div>
+          <div class="lista averia">{{ tarea.averia }}</div>
+          <div class="lista">{{ tarea.estado ? 'Completada' : 'Pendiente' }}</div>
+          <div class="lista actions">
+            <button @click="toggleEstado(tarea.id)" class="btn-toggle">Cambiar estado</button>
+            <button @click="eliminarTarea(tarea.id)" class="btn-delete">Eliminar</button>
+          </div>
+        </div>
       </div>
-
       <div class="task-input">
         <input v-model="nuevaTarea" placeholder="Añadir nueva tarea" />
         <button @click="agregarTarea" class="btn-add">Agregar</button>
       </div>
     </div>
   </div>
+
+  
 </template>
 
 <script>
@@ -70,16 +65,17 @@ export default {
 
 <style scoped>
 .averia {
-  max-width: 25rem;
-  white-space: nowrap;
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
-
-.action {
-  width: 1px;
+.nombreEquipo {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-
 .container {
   background: linear-gradient(135deg, #2c3e50, #398aa5);
   padding: 1.5rem;
@@ -90,121 +86,96 @@ export default {
   align-items: center;
   width: 80%;
   margin: auto;
-  margin-top: 1rem; 
+  margin-top: 1rem;
 }
-
-.task-list {
- padding: 20px;
+.listaTareas {
   border-radius: 12px;
-  text-align: center; 
+  text-align: center;
+  width: 80%;
 }
-
 h2 {
   color: #ecf0f1;
-  margin-bottom: 10px;
+  margin-bottom: 0.625rem;
   font-size: 2rem;
-  font-weight: bold; 
-}
-
-.table-container {
-  max-width: 100%;
-  
-}
-
-table {
-  border-collapse: separate;
-  border-spacing: 0;
-}
-
-th:first-child {
-  border-top-left-radius: 10px;
-}
-
-th:last-child {
-  border-top-right-radius: 10px;
-}
-
-tr:last-child td:first-child {
-  border-bottom-left-radius: 10px;
-}
-
-tr:last-child td:last-child {
-  border-bottom-right-radius: 10px;
-}
-
-th,
-td {
-  padding: 12px;
-  text-align: left;
-  color: #ecf0f1;
-  border: 1px solid #ddd;
-}
-th {
-  background: #1abc9c;
   font-weight: bold;
-
+}
+.containerLista {
+    width:100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 0.625rem;
+    overflow: hidden;
+}
+.lista-titulos, .lista-fila {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 3rem 5rem 3rem 10rem 2fr 6rem 1fr;
+ 
 }
 
-td {
-  max-width: 15rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.par {
-  background: #3b4b5a;
-}
-
-.impar {
-  background: #2f3c4a;
-}
-
-tr:hover {
-  background-color: #1abc2a70;
-  color: white;
-}
-
-button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin: 5px;
-  transition: all 0.3s ease-in-out;
-}
-
-button:hover {
-  opacity: 0.8;
-}
-
-.btn-toggle {
+.lista-titulos{
   background: #16a085;
   color: white;
 }
 
+.lista {
+  flex: 1;
+  padding: 0.3rem;
+  text-align: center;
+  color: #ecf0f1;
+  margin: auto;
+}
+.titulo {
+  font-weight: bold;
+  height: 1.5rem;
+}
+.actions {
+  display: flex;
+  gap: 0.625rem;
+  padding: 0.4rem;
+}
+.par {
+  background: #3b4b5a;
+}
+.impar {
+  background: #2f3c4a;
+}
+.list-row:hover {
+  background-color: #1abc2a70;
+  color: white;
+}
+button {
+  padding: 0.313rem 0.625rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+button:hover {
+  opacity: 0.8;
+}
+.btn-toggle {
+  background: #16a085;
+  color: white;
+}
 .btn-delete {
   background: #e74c3c;
   color: white;
 }
-
 .btn-add {
   background: #1abc9c;
   color: white;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
   font-weight: bold;
-  transition: all 0.3s ease-in-out;
-  margin-left: 10px;
 }
-
 .task-input {
   margin-top: 15px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 input {
   padding: 8px;
   width: 70%;
@@ -212,7 +183,6 @@ input {
   border-radius: 5px;
   margin-right: 10px;
 }
-
 input:focus {
   outline: none;
   border: 2px solid #16a085;
