@@ -41,10 +41,14 @@ export default {
     return {
       nuevaTarea: "",
       tareas: [
-        { id: 1, numOt: 1, fecha: "02/03/2025", equipoId: 2, nombreEquipo: "Electrocardiografo", averia: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", estado: false },
-        { id: 2, numOt: 2, fecha: "02/03/2025", equipoId: 2, nombreEquipo: "Electrocardiografo", averia: "El equipo no imprime y salen artefactos", estado: false },
-        { id: 3, numOt: 3, fecha: "02/03/2025", equipoId: 2, nombreEquipo: "Electrocardiografo", averia: "El equipo no imprime y salen artefactos", estado: false },
-        { id: 4, numOt: 4, fecha: "02/03/2025", equipoId: 2, nombreEquipo: "ElectrocardiografoTocoojhasdihjasdoahsdoasd", averia: "El equipo no imprime y salen artefactos", estado: false },
+        { id: 1, numOt: 1, fecha: "02/03/2025", equipoId: 2, 
+        nombreEquipo: "Electrocardiografo", averia: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", estado: false },
+        { id: 2, numOt: 2, fecha: "02/03/2025", equipoId: 2, 
+        nombreEquipo: "Electrocardiografo", averia: "El equipo no imprime y salen artefactos", estado: false },
+        { id: 3, numOt: 3, fecha: "02/03/2025", equipoId: 2, 
+        nombreEquipo: "Electrocardiografo", averia: "El equipo no imprime y salen artefactos", estado: false },
+        { id: 4, numOt: 4, fecha: "02/03/2025", equipoId: 2, 
+        nombreEquipo: "ElectrocardiografoTocoojhasdihjasdoahsdoasd", averia: "El equipo no imprime y salen artefactos", estado: false },
       ],
     };
   },
