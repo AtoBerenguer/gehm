@@ -1,23 +1,25 @@
 <template>
     <div class="container">
         <h2 class="title">Inventario de Equipos</h2>
-        
-        <button @click="mostrarModal = true" class="btn-create">Crear Equipo</button>
-        
+
+        <button @click="abrirModal()" class="btn-create">Crear Equipo</button>
+
         <div class="table-container">
             <div class="table-header">
                 <div class="table-cell">ID</div>
-                <div class="table-cell">Tipología</div>
+                <div class="table-cell">Categoría</div>
                 <div class="table-cell">Marca</div>
                 <div class="table-cell">Modelo</div>
                 <div class="table-cell">Número de Serie</div>
+                <div class="table-cell">Estado</div>
             </div>
-            <div v-for="equipo in equipos" :key="equipo.id" class="table-row">
+            <div v-for="equipo in equipos" :key="equipo.id_inventario" class="table-row">
                 <div class="table-cell">{{ equipo.id_inventario }}</div>
                 <div class="table-cell">{{ equipo.nombre_categoria }}</div>
                 <div class="table-cell">{{ equipo.nombre_marca }}</div>
                 <div class="table-cell">{{ equipo.nombre_modelo }}</div>
                 <div class="table-cell">{{ equipo.numero_serie }}</div>
+                <div class="table-cell">{{ equipo.estado }}</div>
             </div>
         </div>
 
@@ -107,12 +109,12 @@ button:hover {
     overflow: hidden;
 }
 
-.table-header, .table-row {
+.table-header,
+.table-row {
     display: flex;
     background-color: #1abc9c;
     color: white;
     font-weight: bold;
-    
 }
 
 .table-row:nth-child(even) {
