@@ -13,9 +13,9 @@
                 <div class="table-cell">Número de Serie</div>
                 <div class="table-cell">Estado</div>
             </div>
-            <div v-for="equipo in equipos" :key="equipo.id_inventario" class="table-row">
+            <div v-for="equipo in equipos" :key="equipo.id_inventario" class="table-row" @click="abrirModalEquipo(equipo)">
                 <div class="table-cell">{{ equipo.id_inventario }}</div>
-                <div class="table-cell">{{ equipo.nombre_categoria }}</div>
+                <div class="table-cell categoria">{{ equipo.nombre_categoria }}</div>
                 <div class="table-cell">{{ equipo.nombre_marca }}</div>
                 <div class="table-cell">{{ equipo.nombre_modelo }}</div>
                 <div class="table-cell">{{ equipo.numero_serie }}</div>
@@ -24,29 +24,33 @@
         </div>
 
         <modalCreateEquipment v-if="mostrarModal" @cerrarModal="cerrarModal" />
+        <modalEquipoSeleccionado v-if="mostrarModalEquipo" :equipo="equipoSelecionado" @cerrarModal="cerrarModalEquipo" />
     </div>
 </template>
 
 <script>
 import axios from 'axios';
 import modalCreateEquipment from './modalCreateEquipment.vue';
-
+import modalEquipoSeleccionado from './modalEquipoSeleccionado.vue';
 export default {
     name: 'allInventario',
     components: {
-        modalCreateEquipment
+        modalCreateEquipment,
+        modalEquipoSeleccionado
     },
     data() {
         return {
             equipos: [],
             mostrarModal: false,
+            mostrarModalEquipo: false,
+            equipoSelecionado: null
         };
     },
     mounted() {
         axios.get('http://localhost/BDD-MedicalEquipment/controller/inventary/CRUD_INVENTARY.php')
             .then(response => {
                 this.equipos = response.data;
-                console.log(this.equipos);
+                // console.log(this.equipos);
             })
             .catch(error => {
                 console.log("Error: ", error);
@@ -58,6 +62,17 @@ export default {
         },
         cerrarModal() {
             this.mostrarModal = false;
+            window.location.reload();
+        },
+        abrirModalEquipo(equipo) {
+            this.equipoSelecionado = equipo;
+            this.mostrarModalEquipo = true;
+        },
+        cerrarModalEquipo() {
+            this.mostrarModalEquipo = false;
+            this.equipoSelecionado = null;
+            window.location.reload();
+
         }
     }
 };
@@ -101,7 +116,8 @@ button:hover {
 }
 
 .table-container {
-    width: 80%;
+    width: 100%;
+    max-width: 70%;
     display: flex;
     flex-direction: column;
     border: 1px solid #ddd;
@@ -132,11 +148,18 @@ button:hover {
 
 .table-cell {
     flex: 1;
-    padding: 12px;
-    text-align: left;
-    border-right: 1px solid #ddd;
+    padding: 0.3rem;
+    font-size: smaller;
+    
+    max-height: 1.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     color: #ecf0f1;
+    text-align: center;
 }
+.categoria {
+text-align: left;}
 
 .table-cell:last-child {
     border-right: none;
