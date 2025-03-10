@@ -14,7 +14,7 @@
                     <router-link to="/" class="nav-link">Almacén</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link to="/" class="nav-link logout">LogOut</router-link>
+                    <router-link to="/" class="nav-link logout" @click="logout()">LogOut</router-link>
                 </li>
             </ul>
         </nav>
@@ -28,6 +28,11 @@ export default {
         return {
             text: "GMHM",
         };
+    },
+    methods: {
+        logout() {
+            localStorage.clear();
+        },
     },
 };
 </script>
@@ -44,8 +49,9 @@ export default {
     width: 80%;
     margin: auto;
 }
-h2{
-width: 70%;
+
+h2 {
+    width: 70%;
 }
 
 .title {
