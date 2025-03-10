@@ -4,8 +4,8 @@
       <h2>Lista de Tareas</h2>
       <div class="containerLista">
         <div class="lista-titulos">
+          <div class="lista titulo">Equipo</div>
           <div class="lista titulo">Fecha</div>
-          <div class="lista titulo">Num Ot</div>
           <div class="lista titulo">Equipo</div>
           <div class="lista titulo">Nombre Equipo</div>
           <div class="lista titulo">Avería</div>
@@ -36,9 +36,11 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
+      task:[],
       nuevaTarea: "",
       tareas: [
         { id: 1, numOt: 1, fecha: "02/03/2025", equipoId: 2, 
@@ -51,6 +53,17 @@ export default {
         nombreEquipo: "ElectrocardiografoTocoojhasdihjasdoahsdoasd", averia: "El equipo no imprime y salen artefactos", estado: false },
       ],
     };
+  },
+  mounted() {
+      
+    axios.get("http://localhost/BDD-MedicalEquipment/controller/tickets/getTicketsByID.php?usuario_id="+localStorage.getItem("usuario_id"))
+      .then((response) => {
+        this.task = response.data;
+        console.log(this.task);
+        
+      }).catch((error) => {
+        console.log("Error: ", error);
+      });
   },
   methods: {
     agregarTarea() {
