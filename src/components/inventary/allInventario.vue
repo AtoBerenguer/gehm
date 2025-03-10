@@ -50,7 +50,7 @@ export default {
         axios.get('http://localhost/BDD-MedicalEquipment/controller/inventary/CRUD_INVENTARY.php')
             .then(response => {
                 this.equipos = response.data;
-                // console.log(this.equipos);
+                
             })
             .catch(error => {
                 console.log("Error: ", error);
