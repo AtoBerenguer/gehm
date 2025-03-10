@@ -35,7 +35,7 @@ export default {
 
         if (data.id_usuario) {
           localStorage.setItem("rol_id", data.ROL_ID);
-          localStorage.setItem("user_id", data.id_usuario);
+          localStorage.setItem("usuario_id", data.id_usuario);
           this.$router.push({ name: "mainContent" });
         } else {
           alert("Usuario o contraseña incorrectos");
