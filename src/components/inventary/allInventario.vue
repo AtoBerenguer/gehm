@@ -33,7 +33,7 @@ import axios from 'axios';
 import modalCreateEquipment from './modalCreateEquipment.vue';
 import modalEquipoSeleccionado from './modalEquipoSeleccionado.vue';
 export default {
-    name: 'allInventario',
+    
     components: {
         modalCreateEquipment,
         modalEquipoSeleccionado
@@ -46,7 +46,7 @@ export default {
             equipoSelecionado: null
         };
     },
-    mounted() {
+    mounted() { // cargamos los equipos al cargar el componente
         axios.get('http://localhost/BDD-MedicalEquipment/controller/inventary/CRUD_INVENTARY.php')
             .then(response => {
                 this.equipos = response.data;
@@ -64,7 +64,7 @@ export default {
             this.mostrarModal = false;
             window.location.reload();
         },
-        abrirModalEquipo(equipo) {
+        abrirModalEquipo(equipo) { // funcion para abrir el modal con la información del equipo seleccionado
             this.equipoSelecionado = equipo;
             this.mostrarModalEquipo = true;
         },

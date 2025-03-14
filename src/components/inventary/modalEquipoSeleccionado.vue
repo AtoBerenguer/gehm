@@ -24,6 +24,7 @@ export default {
 
     },
     methods: {
+        //Creamos un metodo con confirmación para eliminar del inventario el equipo que tenemos abierto en el
         async deleteEquipoID(id_inventario) {
             if (confirm("¿Está seguro de eliminar este equipo?")) {
                 axios.delete(`http://localhost/BDD-MedicalEquipment/controller/inventary/deleteID_equipment.php?id_inventario=${id_inventario}`)

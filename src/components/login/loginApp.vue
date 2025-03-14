@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <h2>Login</h2>
-    <form @submit.prevent="loginIn()">
+    <form @submit.prevent="fakeLogin()">
       <div class="form-group">
         <label for="username">Email:</label>
         <input type="text" id="username" v-model="email" required />
@@ -24,7 +24,10 @@ export default {
     };
   },
   methods: {
-    async loginIn() {
+    fakeLogin() { // funcion para simular el login sin base de datos
+      this.$router.push({ name: "mainContent" });
+    },
+    async loginIn() { // Funcion asincrona para realizar la petición al backend y verificar el login
       try {
         const response = await fetch("http://localhost/BDD-MedicalEquipment/controller/users/logIn.php", {
           method: "POST",
@@ -33,7 +36,7 @@ export default {
 
         const data = await response.json();
 
-        if (data.id_usuario) {
+        if (data.id_usuario) { //Añadimos el rol_id al localstorage para luego usarlo en el mainContent para mostrar las opciones correspondientes
           localStorage.setItem("rol_id", data.ROL_ID);
           localStorage.setItem("usuario_id", data.id_usuario);
           this.$router.push({ name: "mainContent" });
