@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <h2>Login</h2>
-    <form @submit.prevent="fakeLogin()">
+    <form @submit.prevent="loginIn()">
       <div class="form-group">
         <label for="username">Email:</label>
         <input type="text" id="username" v-model="email" required />

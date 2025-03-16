@@ -43,10 +43,11 @@ export default {
             equipos: [],
             mostrarModal: false,
             mostrarModalEquipo: false,
-            equipoSelecionado: null
+            equipoSelecionado: null,
         };
     },
-    mounted() { // cargamos los equipos al cargar el componente
+    mounted() { 
+        // cargamos los equipos al cargar el componente
         axios.get('http://localhost/BDD-MedicalEquipment/controller/inventary/CRUD_INVENTARY.php')
             .then(response => {
                 this.equipos = response.data;
@@ -55,7 +56,7 @@ export default {
             .catch(error => {
                 console.log("Error: ", error);
             });
-    },
+            },
     methods: {
         abrirModal() {
             this.mostrarModal = true;

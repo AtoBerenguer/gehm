@@ -10,7 +10,7 @@
             <p><strong>Estado:</strong> {{ equipo.estado }}</p>
             <div class="Buttons">
                 <button class="closeBtn" @click="$emit('cerrarModal')">Cerrar</button>
-                <button class="deleteBtn" @click="deleteEquipoID(equipo.id_inventario)">Eliminar </button>
+                <button v-if="roleId !== '3' " class="deleteBtn" @click="deleteEquipoID(equipo.id_inventario)">Eliminar </button>
             </div>
         </div>
     </div>
@@ -20,8 +20,15 @@
 import axios from 'axios';
 export default {
     props: {
-        equipo: Object
-
+        equipo: Object,
+    },
+    data() {
+        return {
+            roleId: null
+        };
+    },
+    mounted() {
+        this.roleId = localStorage.getItem("rol_id");
     },
     methods: {
         //Creamos un metodo con confirmación para eliminar del inventario el equipo que tenemos abierto en el
