@@ -1,31 +1,22 @@
 <template>
     <div class="container">
         <h2 class="title">Inventario de Equipos</h2>
-
         <button @click="abrirModal()" class="btn-create">Crear Equipo</button>
 
-        <!-- <div class="table-container">
-            <div class="table-header">
-                <div class="table-cell">ID</div>
-                <div class="table-cell">Categoría</div>
-                <div class="table-cell">Marca</div>
-                <div class="table-cell">Modelo</div>
-                <div class="table-cell">Número de Serie</div>
-                <div class="table-cell">Estado</div>
-            </div> -->
-            <DataTable :data="equipos" :headers="headers" :itemsPerPage="15" @objetoSeleccionado="abrirModalEquipo" />
-            <!-- <div v-for="equipo in equipos" :key="equipo.id_inventario" class="table-row" @click="abrirModalEquipo(equipo)">
-                <div class="table-cell">{{ equipo.id_inventario }}</div>
-                <div class="table-cell categoria">{{ equipo.nombre_categoria }}</div>
-                <div class="table-cell">{{ equipo.nombre_marca }}</div>
-                <div class="table-cell">{{ equipo.nombre_modelo }}</div>
-                <div class="table-cell">{{ equipo.numero_serie }}</div>
-                <div class="table-cell">{{ equipo.estado }}</div>
-            </div>
-        </div> -->
+        <DataTable :data="equipos" 
+        :headers="headers" 
+        :itemsPerPage="15" 
+        @objetoSeleccionado="abrirModalEquipo" /> 
 
-        <modalCreateEquipment v-if="mostrarModal" @cerrarModal="cerrarModal" />
-        <modalEquipoSeleccionado v-if="mostrarModalEquipo" :equipo="equipoSelecionado" @cerrarModal="cerrarModalEquipo" />
+        <modalCreateEquipment 
+        v-if="mostrarModal" 
+        @cerrarModal="cerrarModal" />
+        
+        <modalEquipoSeleccionado 
+        v-if="mostrarModalEquipo" 
+        :equipo="equipoSelecionado" 
+        @cerrarModal="cerrarModalEquipo" />
+
     </div>
 </template>
 
@@ -34,6 +25,7 @@ import DataTable from '../shared/DataTable.vue';
 import axios from 'axios';
 import modalCreateEquipment from './modalCreateEquipment.vue';
 import modalEquipoSeleccionado from './modalEquipoSeleccionado.vue';
+
 export default {
     
     components: {
