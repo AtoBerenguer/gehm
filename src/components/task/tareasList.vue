@@ -38,9 +38,11 @@ export default {
         id_ticket: "Nº ticket",
         fecha: "Fecha",
         equipoId: "Nº Equipo",
-        nombreEquipo: "Nombre Equipo",
+        nombre_categoria: "Tipologia",
+        nombreModelo: "Nombre Modelo",
         averia: "Avería",
         estado: "Estado",
+        
       },
 
     };
@@ -51,14 +53,14 @@ export default {
     axios
       .get("http://localhost/BDD-MedicalEquipment/controller/tickets/getTicketsByID.php?usuario_id=" + localStorage.getItem("usuario_id"))
       .then((response) => {
-        // Asignamos los datos transformados a tareas
         this.tareas = response.data.map(task => ({
           id_ticket: task.id_ticket,
           fecha: task.fecha_creacion,
           equipoId: task.inventario_id,
-          nombreEquipo: task.nombre_modelo,
+          nombreModelo: task.nombre_modelo,
           averia: task.descripcion,
-          estado: task.estado ? "Completada" : "Pendiente"
+          estado: task.estado ? "Completada" : "Pendiente",
+          nombre_categoria: task.nombre_categoria
         }));
       })
       .catch((error) => {
@@ -84,14 +86,17 @@ export default {
             id_ticket: task.id_ticket,
             fecha: task.fecha_creacion,
             equipoId: task.inventario_id,
-            nombreEquipo: task.nombre_modelo,
+            nombreModelo: task.nombre_modelo,
             averia: task.descripcion,
-            estado: task.estado ? "Completada" : "Pendiente"
+            estado: task.estado ? "Completada" : "Pendiente",
+            nombre_categoria: task.nombre_categoria
           }));
         })
         .catch((error) => {
           console.log("Error: ", error);
         });
+        
+        
     },
     abrirModalTask() {
       this.mostrarModal = true;
