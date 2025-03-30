@@ -88,7 +88,7 @@ export default {
           "http://localhost/BDD-MedicalEquipment/controller/inventary/create_equipment.php",
           formData,
           {
-            headers: {
+            headers: { //Usamos el formData para enviar el contenido a la petición
               "Content-Type": "multipart/form-data"
             }
           }
