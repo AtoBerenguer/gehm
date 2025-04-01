@@ -71,13 +71,7 @@ export default {
     agregarTarea() {
       console.log("Agregar tarea");
     },
-    toggleEstado(id) {
-      const tarea = this.tareas.find((t) => t.id === id);
-      if (tarea) tarea.estado = !tarea.estado;
-    },
-    eliminarTarea(id) {
-      this.tareas = this.tareas.filter((t) => t.id !== id);
-    },
+    
     cargarTodasOT() {
       axios
         .get("http://localhost/BDD-MedicalEquipment/controller/tickets/getAllTickets.php")
