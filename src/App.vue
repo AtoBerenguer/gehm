@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="app-container">
-    <HeaderComponent v-if="!isLoginRoute"></HeaderComponent>
-    <router-view></router-view>
-    <FooterComponent v-if="!isLoginRoute"></FooterComponent>
+    <HeaderComponent class="headerComponent" v-if="!isLoginRoute"></HeaderComponent>
+    <router-view class="mainComponent"></router-view>
+    <FooterComponent class="footerComponent" v-if="!isLoginRoute"></FooterComponent>
   </div>
 </template>
 
@@ -35,28 +35,42 @@ export default {
 <style>
 
 body {
-  margin: 0;
+  margin: 2rem;
   font-family: Arial, Helvetica, sans-serif;
   background-color: #000000;
   color: #333;
 }
 
 #app {
-  
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  
   text-align: center;
 }
 
 .app-container {
-  padding: 20px;
   background-color: #000000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  display: flex;
+  height: 93vh;
+  width: 100%;
 }
 
+.headerComponent, .footerComponent {
+  height: 7vh;
+  display: flex;
+  align-items: center;
+
+}
+.mainComponent {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  
+}
 
 
 
