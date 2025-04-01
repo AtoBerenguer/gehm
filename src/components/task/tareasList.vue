@@ -88,7 +88,7 @@ export default {
             equipoId: task.inventario_id,
             nombreModelo: task.nombre_modelo,
             averia: task.descripcion,
-            estado: task.estado ? "Completada" : "Pendiente",
+            estado: task.estado,
             nombre_categoria: task.nombre_categoria
           }));
         })
