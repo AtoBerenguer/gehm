@@ -96,6 +96,8 @@ export default {
     max-width: 80%;
     margin: auto;
     margin-top: 20px;
+    border-radius: 10px;
+
 }
 
 .title {

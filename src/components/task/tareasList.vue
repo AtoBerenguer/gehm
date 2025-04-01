@@ -4,14 +4,15 @@
     <div class="listaTareas">
       <h2 class="title">Lista de Tareas</h2>
       <div class="task-input">
-        <button @click="abrirModalTask()" v-if="rolId !== '3'">Agregar</button>
-        <button v-if="rolId !== '3'" @click="cargarTodasOT">Cargar todas la tareas</button>
+        <button class="btnMod" @click="abrirModalTask()" v-if="rolId !== '3'">Agregar</button>
+        <button class="btnMod" v-if="rolId !== '3'" @click="cargarTodasOT">Cargar todas la tareas</button>
       </div>
       <DataTable :data="tareas" 
       :headers="headers" 
       :itemsPerPage="15" />
 
       <modalCreateTask v-if="mostrarModal" @cerrarModalTask="cerrarModalTask" />
+      <modalTaskSelect v-if="mostrarModalTask" :tarea="tareaSeleccionada" ></modalTaskSelect>
     </div>
   </div>
 
@@ -22,11 +23,13 @@
 import axios from "axios";
 import DataTable from "../shared/DataTable.vue";
 import modalCreateTask from "./modalCreateTask.vue";
+import modalTaskSelect from "./modalTaskSelect.vue";
 
 export default {
   components: {
     DataTable,
     modalCreateTask,
+    modalTaskSelect,
   },
   data() {
     return {
@@ -34,6 +37,8 @@ export default {
       rolId: null,
       nuevaTarea: "",
       mostrarModal: false,
+      mostrarModalTask: false,
+      tareaSeleccionada: null,
       headers: {
         id_ticket: "Nº ticket",
         fecha: "Fecha",
@@ -122,6 +127,21 @@ export default {
   font-size: 2rem;
   font-weight: bold;
 }
+button {
+    background: #1abc9c;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
 
+button:hover {
+    background-color: #16a085;
+    transform: scale(1.05);
+}
 
 </style>

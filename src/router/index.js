@@ -4,7 +4,6 @@ import loginApp from '@/components/login/loginApp.vue';
 import allInventario from '@/components/inventary/allInventario';
 import registerUser from '@/components/login/registerUser.vue';
 import tareasList from '@/components/task/tareasList';
-import tareaSelected from '@/components/task/tareaSelected';
 
 const routes = [
     {
@@ -30,11 +29,6 @@ const routes = [
         component: allInventario
     },
     
-    {
-        path: '/tareaSelected',
-        name: 'tareaSelected',
-        component: tareaSelected
-    },
     {
         path: '/tareasList',
         name: 'tareasList',
