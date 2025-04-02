@@ -10,8 +10,8 @@
             </thead>
             <tbody>
                 <tr v-for="(item, index) in paginatedData" :key="index" @click="seleccionarObjeto(item)" >
-                    <td v-for="(header, key) in headers" :key="key">
-                        {{ item[key] }}
+                    <td v-for="(header, key) in headers" :key="key" :title="item[key]">
+                        {{ ['averia','fecha']? (item[key]?.slice(0, 25) + (item[key]?.length > 30 ? '...' : '')) : item[key] }}
                     </td>
                 </tr>
             </tbody>
@@ -81,12 +81,14 @@ export default {
     width: 100%;
     overflow-x: auto;
     text-align: center;
+
 }
 
 table {
     width: 100%;
-    border-collapse: collapse;
     color: white;
+    table-layout: fixed;
+    border-collapse: collapse;
 }
 
 th,
@@ -128,4 +130,13 @@ button {
 button:disabled {
     background: gray;
 }
+td,th{
+white-space: nowrap;
+overflow: hidden;
+
+
+
+
+}
+
 </style>

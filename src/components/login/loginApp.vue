@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <h2>Login</h2>
-    <form @submit.prevent="loginIn()">
+        <form @submit.prevent="loginIn()">
       <div class="form-group">
         <label for="username">Email:</label>
         <input type="text" id="username" v-model="email" required />
@@ -61,6 +61,7 @@ export default {
   max-width: 400px;
   margin: 10rem auto;
   text-align: center;
+  
 }
 
 h2 {
@@ -68,6 +69,7 @@ h2 {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 20px;
+  margin-right: 2rem;
 }
 
 .form-group {

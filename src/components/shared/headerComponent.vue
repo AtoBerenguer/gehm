@@ -1,20 +1,25 @@
 <template>
-    <header class="header">
+    <header class="header" ref="header">
         <h2 class="title">{{ text }}</h2>
 
-        <nav class="nav">
+        <!-- Botón hamburguesa -->
+        <button class="menu-toggle" @click.stop="toggleMenu">
+            ☰
+        </button>
+
+        <nav ref="nav" :class="['nav', { 'is-active': menuOpen }]">
             <ul class="nav-list">
                 <li class="nav-item">
-                    <router-link to="/inventary" class="nav-link">Inventario</router-link>
+                    <router-link to="/inventary" class="nav-link" @click="closeMenu">Inventario</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link to="/main" class="nav-link">Órdenes</router-link>
+                    <router-link to="/main" class="nav-link" @click="closeMenu">Órdenes</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link to="/" class="nav-link">Almacén</router-link>
+                    <router-link to="/" class="nav-link" @click="closeMenu">Almacén</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link to="/" class="nav-link logout" @click="logout()">LogOut</router-link>
+                    <router-link to="/" class="nav-link logout" @click="logout">LogOut</router-link>
                 </li>
             </ul>
         </nav>
@@ -27,12 +32,34 @@ export default {
     data() {
         return {
             text: "GMHM",
+            menuOpen: false, // Estado del menú
         };
     },
     methods: {
         logout() {
             localStorage.clear();
+            this.menuOpen = false; // Cierra el menú al cerrar sesión
         },
+        toggleMenu() {
+            this.menuOpen = !this.menuOpen;
+        },
+        closeMenu(event) {
+            if (this.menuOpen) {
+                const nav = this.$refs.nav;
+                const button = document.querySelector(".menu-toggle");
+
+                // Si el clic fue fuera del menú y fuera del botón, se cierra
+                if (nav && !nav.contains(event.target) && button && !button.contains(event.target)) {
+                    this.menuOpen = false;
+                }
+            }
+        },
+    },
+    mounted() {
+        document.addEventListener("click", this.closeMenu);
+    },
+    beforeUnmount() {
+        document.removeEventListener("click", this.closeMenu);
     },
 };
 </script>
@@ -44,27 +71,30 @@ export default {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     display: flex;
-    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
     width: 80%;
     margin: auto;
-}
-
-h2 {
-    width: 70%;
 }
 
 .title {
     color: white;
     font-size: 1.8rem;
-    margin-bottom: 1rem;
     font-weight: bold;
+}
+
+/* Estilos para el botón hamburguesa */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: white;
+    cursor: pointer;
 }
 
 .nav {
     width: 100%;
-    display: flex;
-    justify-content: center;
 }
 
 .nav-list {
@@ -72,6 +102,7 @@ h2 {
     display: flex;
     gap: 1.2rem;
     padding: 0;
+    justify-content: end;
     margin: 0;
 }
 
@@ -107,5 +138,39 @@ h2 {
 .logout:hover {
     background-color: red;
     color: white;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav {
+        display: none;
+        width: 30%;
+        position: absolute;
+        top: 2.5rem;
+        right: 3rem;
+        background: #2c3e50;
+        text-align: center;
+        border-radius: 10px;
+    }
+
+    .nav.is-active {
+        display: block;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .nav-link {
+        display: block;
+        width: 60%;
+        font-size: 0.75rem;
+    }
 }
 </style>
