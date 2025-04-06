@@ -17,6 +17,7 @@
     ]
   },
   "exclude": [
-    "src/components/mainContent.vue"
+    "src/components/mainContent.vue",
+    "src/components/shared/modalUpdateUsers.vue"
   ]
 }
