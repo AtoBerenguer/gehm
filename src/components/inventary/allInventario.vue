@@ -3,12 +3,10 @@
         <h2 class="title">Inventario de Equipos</h2>
         <button v-if="rolId == '1'" @click="abrirModal()" class="btn-create">Crear Equipo</button>
 
-        <!-- Filtros por columna -->
         <div class="filters">
             <input v-for="(label, key) in headers" :key="key" v-model="filters[key]" :placeholder="`Filtrar por ${label}`" class="filter-input" />
         </div>
 
-        <!-- Tabla con datos filtrados -->
         <DataTable 
             :data="filteredEquipos" 
             :headers="headers" 

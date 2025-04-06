@@ -14,15 +14,7 @@ export default {
        tareasList,
         
     },
-    data() {
-        return {
-            tareas: [
-                { id: 1, nombre: 'Tarea 1', estado: 'Pendiente' },
-                { id: 2, nombre: 'Tarea 2', estado: 'En Progreso' },
-                { id: 3, nombre: 'Tarea 3', estado: 'Completada' }
-            ]
-        };
-    }
+    
 };
 </script>
 

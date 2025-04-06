@@ -3,7 +3,7 @@
   <footer class="footer">
     <div class="footer-content">
       <p>&copy; {{ new Date().getFullYear() }} Medical Equipment. Todos los derechos reservados.</p>
-      <button v-if="rolId == '1'" @click="abrirModal()">Usuarios</button>
+      <button class="usersbtn" v-if="rolId == '1'" @click="abrirModal()">Usuarios</button>
     </div>
     <modalCrearUser v-if="mostrarModal" @cerrarModal="cerrarModal"/>
   </footer>
@@ -36,6 +36,15 @@ export default{
 }
 </script>
 <style scoped>
+.usersbtn{
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
 .footer {
   background: linear-gradient(135deg, #303e4b, #1a3740);
   color: #ecf0f1;

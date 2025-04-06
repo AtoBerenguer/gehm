@@ -7,14 +7,17 @@
             <p><strong>Modelo:</strong> {{ tarea.nombreModelo }}</p>
             <p><strong>Estado:</strong> {{ tarea.estado }}</p>
             <p><strong>Descripción averia:</strong> {{ tarea.averia }}</p>
-            <div class="descripcion-container">
+            <p><strong>Comentario técnico:</strong> {{ tarea.comentario }}</p>
+            
+            <div class="descripcion-container" v-if="tarea.estado === 'Pendiente'">
                 <input v-model="comentario" class="descripcion" type="text"
                     placeholder="Descripción de la reparación" />
                 <button class="updateBtn" @click="actualizarComentario">Actualizar</button>
             </div>
+            
             <div class="Buttons">
                 <button class="closeBtn" @click="$emit('cerrarModalTareaSelect')">X</button>
-                <button class="finalizar" @click="finalizarTarea">Finalizar</button>
+                <button v-if="tarea.estado === 'Pendiente'" class="finalizar" @click="finalizarTarea">Finalizar</button>
             </div>
         </div>
 

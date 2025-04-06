@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router';
 import mainContent from '@/components/mainContent.vue';
 import loginApp from '@/components/login/loginApp.vue';
 import allInventario from '@/components/inventary/allInventario';
-import registerUser from '@/components/login/registerUser.vue';
 import tareasList from '@/components/task/tareasList';
 
 const routes = [
@@ -12,13 +11,7 @@ const routes = [
         component: loginApp
         
     },
-    {
-        path: '/register',
-        name: 'register',
-        component: registerUser
-        
-    },
-    {
+       {
         path: '/main',
         name: 'mainContent',
         component: mainContent

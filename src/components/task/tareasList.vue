@@ -109,7 +109,8 @@ export default {
             nombreModelo: task.nombre_modelo,
             averia: task.descripcion,
             estado: task.estado,
-            nombre_categoria: task.nombre_categoria
+            nombre_categoria: task.nombre_categoria,
+            comentario: task.comentario
           }));
         })
         .catch(error => {
@@ -127,7 +128,8 @@ export default {
             nombreModelo: task.nombre_modelo,
             averia: task.descripcion,
             estado: task.estado,
-            nombre_categoria: task.nombre_categoria
+            nombre_categoria: task.nombre_categoria,
+            comentario: task.comentario
           }));
         })
         .catch(error => {
