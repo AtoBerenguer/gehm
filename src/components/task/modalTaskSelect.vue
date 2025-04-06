@@ -157,6 +157,7 @@ export default {
     text-align: left;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     color: #ecf0f1;
+    
 
 }
 
@@ -164,5 +165,9 @@ h3 {
     font-size: 1.5rem;
     color: #1abc9c;
     margin-bottom: 15px;
+}
+p{
+overflow-wrap: break-word;
+max-width: 100%;
 }
 </style>

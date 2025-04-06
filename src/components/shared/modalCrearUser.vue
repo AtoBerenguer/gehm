@@ -1,0 +1,217 @@
+<template>
+    <div class="modal">
+        <div class="modal-content">
+            <select v-model="opcionSeleccionada" @change="cambiarOpcion">
+                <option value="crear">Crear Usuario</option>
+                <option value="">Modificar Usuario</option>
+            </select>
+            <div v-if="mostrarCrearUsuario" class="crearUser">
+
+                <h2>Crear Usuario</h2>
+                <label for="nombre">Nombre:</label>
+                <input v-model="nuevoUser.nombre" type="text" placeholder="Ingrese el nombre">
+
+                <label for="Apellidos">Apellidos:</label>
+                <input v-model="nuevoUser.apellidos" type="text" placeholder="Ingrese el apellidos">
+
+                <label for="Email">Email:</label>
+                <input v-model="nuevoUser.email" type="email" placeholder="Ingrese el email">
+
+                <label for="Password">Password:</label>
+                <input v-model="nuevoUser.password"  type="password" placeholder="Ingrese el password">
+
+                <button class="guardarBtn" @click="guardarUser">Guardar</button>
+
+            </div>
+
+            <div v-if="mostrarModUser" class="modUsers">
+                <h2>Modificar rol de usuario</h2>
+                <label for="id_usuario">Usuarios: </label>
+                <select name="id_usuario" id="id_usuario">
+                    <option v-for="usuario in usuarios" :key="usuario.id_usuario" :value="usuario.id_usuario">
+                      {{ usuario.id_usuario }} -  {{ usuario.nombre }} {{ usuario.apellidos }}
+                    </option>
+                </select>
+                <label for="rol_id">Rol:</label>
+                <select name="rol_id" id="rol_id">
+                    <option value="1">Administrador</option>
+                    <option value="2">Supervisor</option>
+                    <option value="3">Tecnico</option>
+                </select>
+                <button class="guardarBtn" @click="actualizarRolUser">Actualizar</button>
+
+            </div>
+
+            
+            <div class="modal-buttons">
+                <button class="closeBtn" @click="$emit('cerrarModal')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+export default {
+    props: ["mostrarModal"],
+    data() {
+        return {
+            opcionSeleccionada: "crear",
+            mostrarCrearUsuario: true,
+            mostrarModUser: false,
+            usuarioSeleccionado: null,
+            nuevoUser: {
+                nombre: "",
+                apellidos: "",
+                email: "",
+                password: "",
+                
+            },
+            updateUser:{
+                id_usuario: "",
+                rol_id: "",
+            },
+            usuarios: [],
+        }
+
+
+    },
+    mounted() {
+        this.cargarUsuarios();
+    },
+    methods: {
+        cambiarOpcion() {
+            if (this.opcionSeleccionada === "crear") {
+                this.mostrarCrearUsuario = true;
+                this.mostrarModUser = false;
+            } else {
+                this.mostrarCrearUsuario = false;
+                this.mostrarModUser = true;
+            }
+        },
+        cargarUsuarios() {
+            axios.get("http://localhost/BDD-MedicalEquipment/controller/users/getAll_users.php")
+                .then(response => {
+                    this.usuarios = response.data;
+                    console.log(this.usuarios);
+                    
+                })
+                .catch(error => {
+                    console.error("Error cargando usuarios:", error);
+                });
+        },
+        guardarUser(){
+            const { nombre, apellidos, email, password, rol_id } = this.nuevoUser;
+            if (!nombre || !apellidos || !email || !password) {
+                alert("Todos los campos son obligatorios");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("nombre", nombre);
+            formData.append("apellidos", apellidos);
+            formData.append("email", email);
+            formData.append("password", password);
+            formData.append("rol_id", rol_id);
+
+            axios.post("http://localhost/BDD-MedicalEquipment/controller/users/create_users.php", formData)
+                .then(response => {
+                    console.log("Usuario creado:", response.data);
+                    alert("Usuario creado con éxito");
+                    this.cargarUsuarios();
+                })
+                .catch(error => {
+                    console.error("Error creando usuario:", error);
+                });
+        },
+        actualizarRolUser(){
+
+        }
+
+    }
+};
+</script>
+
+<style scoped>
+.guardarBtn{
+    background-color: #1abc9c;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+}
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #34495e;
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: #ecf0f1;
+}
+
+h2 {
+    font-size: 1.8rem;
+    color: #1abc9c;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    color: #ecf0f1;
+    font-size: 1rem;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: none;
+    background: #2c3e50;
+    color: #ecf0f1;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border: 2px solid #1abc9c;
+}
+
+.modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.closeBtn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    background-color: red;
+    color: white;
+}
+
+
+</style>

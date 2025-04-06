@@ -29,6 +29,7 @@ export default {
     };
   },
   
+  
 }
 </script>
 
@@ -37,7 +38,7 @@ export default {
 body {
   margin: 2rem;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: #000000;
+  background-color: #1c1f29c7;
   color: #333;
 }
 
@@ -49,9 +50,6 @@ body {
 }
 
 .app-container {
-  background-color: #000000;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
   display: flex;
   height: 93vh;
   width: 100%;

@@ -3,15 +3,38 @@
   <footer class="footer">
     <div class="footer-content">
       <p>&copy; {{ new Date().getFullYear() }} Medical Equipment. Todos los derechos reservados.</p>
-      <nav class="footer-nav">
-        <a href="#">Política de privacidad</a>
-        <a href="#">Términos y condiciones</a>
-        <a href="#">Contacto</a>
-      </nav>
+      <button v-if="rolId == '1'" @click="abrirModal()">Crear nuevo usuario</button>
     </div>
+    <modalCrearUser v-if="mostrarModal" @cerrarModal="cerrarModal"/>
   </footer>
 </template>
-
+<script>
+import modalCrearUser from './modalCrearUser.vue';
+export default{
+  components: {
+    modalCrearUser,
+  },
+  data() {
+    return {
+      rolId: null,
+      mostrarModal: false,
+    };
+  },
+  mounted() {
+    this.rolId = localStorage.getItem("rol_id");
+   
+    
+  },
+  methods: {
+    abrirModal() {
+      this.mostrarModal = true;
+    },
+    cerrarModal() {
+      this.mostrarModal = false;
+    },
+  },
+}
+</script>
 <style scoped>
 .footer {
   background: linear-gradient(135deg, #303e4b, #1a3740);

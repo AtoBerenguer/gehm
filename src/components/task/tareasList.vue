@@ -5,26 +5,33 @@
 
       <div class="task-input">
         <button class="btnMod" @click="abrirModalTask()" v-if="rolId !== '3'">Agregar</button>
-        <button class="btnMod" v-if="rolId !== '3'" @click="cargarTodasOT">Cargar todas las tareas</button>
       </div>
 
-      <!-- Filtros por columna -->
       <div class="filters">
-        <input v-for="(label, key) in headers" :key="key" v-model="filters[key]" :placeholder="`Filtrar por ${label}`"
-          class="filter-input" />
+        <div v-for="(label, key) in headers" :key="key">
+          <div v-if="key !== 'estado'"> 
+            <!-- creamos un condicional para eliminar estado de la creacion de filtros ya que lo manejamos de una manera diferente -->
+            <input v-model="filters[key]" :placeholder="`Filtrar por ${label}`" class="filter-input" />
+          </div>
+        </div>
+
+        <div class="filters">
+          <select v-model="estadoFiltro" class="filter-input">
+            <option value="Pendiente">Mostrar solo Pendientes</option>
+            <option value="Finalizada">Mostrar solo Finalizadas</option>
+            <option value="Todas">Mostrar todo</option>
+          </select>
+        </div>
       </div>
 
-      <DataTable :data="filteredTareas" 
-      :headers="headers" 
-      :itemsPerPage="15" 
-      @objetoSeleccionado="abrirModalTaskSelect" />
+
+      <DataTable :data="filteredTareas" :headers="headers" :itemsPerPage="15"
+        @objetoSeleccionado="abrirModalTaskSelect" />
 
       <modalCreateTask v-if="mostrarModal" @cerrarModalTask="cerrarModalTask" />
 
       <modalTaskSelect v-if="mostrarModalTask" :tarea="tareaSeleccionada"
         @cerrarModalTareaSelect="cerrarModalTareaSelect" />
-
-
     </div>
   </div>
 </template>
@@ -48,7 +55,8 @@ export default {
       mostrarModal: false,
       mostrarModalTask: false,
       tareaSeleccionada: null,
-      filters: {}, // Objeto para almacenar los filtros
+      estadoFiltro: 'Pendiente',
+      filters: {},
       headers: {
         id_ticket: "Nº ticket",
         fecha: "Fecha",
@@ -62,33 +70,32 @@ export default {
   },
   computed: {
     filteredTareas() {
-      return this.tareas.filter(tarea => {
-        return Object.keys(this.filters).every(key => {
-          const filterValue = this.filters[key]?.toLowerCase() || "";
-          return filterValue === "" || String(tarea[key]).toLowerCase().includes(filterValue);
+      return this.tareas
+        .filter(t => {
+
+          if (this.estadoFiltro === 'Todas') return true;
+          return t.estado === this.estadoFiltro;
+        })
+        .filter(tarea => {
+
+          return Object.keys(this.filters).every(key => {
+            const filterValue = this.filters[key]?.toLowerCase() || "";
+            return filterValue === "" || String(tarea[key]).toLowerCase().includes(filterValue);
+          });
         });
-      });
     }
   },
   mounted() {
+
     this.rolId = localStorage.getItem("rol_id");
 
-    axios
-      .get("http://localhost/BDD-MedicalEquipment/controller/tickets/getTicketsByID.php?usuario_id=" + localStorage.getItem("usuario_id"))
-      .then(response => {
-        this.tareas = response.data.map(task => ({
-          id_ticket: task.id_ticket,
-          fecha: task.fecha_creacion,
-          equipoId: task.inventario_id,
-          nombreModelo: task.nombre_modelo,
-          averia: task.descripcion,
-          estado: task.estado,
-          nombre_categoria: task.nombre_categoria
-        }));
-      })
-      .catch(error => {
-        console.log("Error: ", error);
-      });
+    if (this.rolId === '1' || this.rolId === '2') {
+      this.cargarTodasOT();
+    } else if (this.rolId === '3') {
+      this.cargarTareasPorUsuario();
+    }
+
+
   },
   methods: {
     cargarTodasOT() {
@@ -109,6 +116,25 @@ export default {
           console.log("Error: ", error);
         });
     },
+    cargarTareasPorUsuario() {
+      axios
+        .get("http://localhost/BDD-MedicalEquipment/controller/tickets/getTicketsByID.php?usuario_id=" + localStorage.getItem("usuario_id"))
+        .then(response => {
+          this.tareas = response.data.map(task => ({
+            id_ticket: task.id_ticket,
+            fecha: task.fecha_creacion,
+            equipoId: task.inventario_id,
+            nombreModelo: task.nombre_modelo,
+            averia: task.descripcion,
+            estado: task.estado,
+            nombre_categoria: task.nombre_categoria
+          }));
+        })
+        .catch(error => {
+          console.log("Error: ", error);
+        });
+    },
+
     abrirModalTask() {
       this.mostrarModal = true;
     },
@@ -122,11 +148,11 @@ export default {
     cerrarModalTareaSelect() {
       this.mostrarModalTask = false;
       this.tareaSeleccionada = null;
-      
     },
   },
 };
 </script>
+
 
 <style scoped>
 .container {
