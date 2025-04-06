@@ -22,6 +22,13 @@
                 <label for="Password">Password:</label>
                 <input v-model="nuevoUser.password"  type="password" placeholder="Ingrese el password">
 
+                <label for="rol_id">Rol:</label>
+                <select v-model="nuevoUser.rol_id" name="rol_id" id="rol_id">
+                    <option value="1">Administrador</option>
+                    <option value="2">Supervisor</option>
+                    <option value="3">Tecnico</option>
+                </select>
+
                 <button class="guardarBtn" @click="guardarUser">Guardar</button>
 
             </div>
@@ -29,13 +36,13 @@
             <div v-if="mostrarModUser" class="modUsers">
                 <h2>Modificar rol de usuario</h2>
                 <label for="id_usuario">Usuarios: </label>
-                <select name="id_usuario" id="id_usuario">
+                <select v-model="updateUser.id_usuario" name="id_usuario" id="id_usuario">
                     <option v-for="usuario in usuarios" :key="usuario.id_usuario" :value="usuario.id_usuario">
                       {{ usuario.id_usuario }} -  {{ usuario.nombre }} {{ usuario.apellidos }}
                     </option>
                 </select>
                 <label for="rol_id">Rol:</label>
-                <select name="rol_id" id="rol_id">
+                <select v-model="updateUser.rol_id" name="rol_id" id="rol_id">
                     <option value="1">Administrador</option>
                     <option value="2">Supervisor</option>
                     <option value="3">Tecnico</option>
@@ -68,6 +75,7 @@ export default {
                 apellidos: "",
                 email: "",
                 password: "",
+                rol_id: "",
                 
             },
             updateUser:{
@@ -105,7 +113,7 @@ export default {
         },
         guardarUser(){
             const { nombre, apellidos, email, password, rol_id } = this.nuevoUser;
-            if (!nombre || !apellidos || !email || !password) {
+            if (!nombre || !apellidos || !email || !password || !rol_id) {
                 alert("Todos los campos son obligatorios");
                 return;
             }
@@ -127,7 +135,27 @@ export default {
                     console.error("Error creando usuario:", error);
                 });
         },
+
         actualizarRolUser(){
+            const { id_usuario, rol_id } = this.updateUser;
+            if (!id_usuario || !rol_id) {
+                alert("Todos los campos son obligatorios");
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("id_usuario", id_usuario);
+            formData.append("rol_id", rol_id);
+
+            axios.post("http://localhost/BDD-MedicalEquipment/controller/users/modRolUser.php", formData)
+                .then(response => {
+                    console.log("Rol de usuario actualizado:", response.data);
+                    alert("Rol de usuario actualizado con éxito");
+                    this.cargarUsuarios();
+                })
+                .catch(error => {
+                    console.error("Error actualizando rol de usuario:", error);
+                });
 
         }
 

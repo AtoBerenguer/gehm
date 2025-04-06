@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     fakeLogin() { // funcion para simular el login sin base de datos
-      this.$router.push({ name: "mainContent" });
+      this.$router.push({ name: "tareasList" });
     },
     async loginIn() { // Funcion  para realizar la petición al backend y verificar el login
       try {
@@ -36,10 +36,10 @@ export default {
 
         const data = await response.json();
 
-        if (data.id_usuario) { //Añadimos el rol_id al localstorage para luego usarlo en el mainContent para mostrar las opciones correspondientes
+        if (data.id_usuario) { //Añadimos el rol_id al localstorage para luego usarlo en el tareasList para mostrar las opciones correspondientes
           localStorage.setItem("rol_id", data.ROL_ID);
           localStorage.setItem("usuario_id", data.id_usuario);
-          this.$router.push({ name: "mainContent" });
+          this.$router.push({ name: "tareasList" });
         } else {
           alert("Usuario o contraseña incorrectos");
         }
