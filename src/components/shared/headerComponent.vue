@@ -15,9 +15,9 @@
                 <li class="nav-item">
                     <router-link to="/main" class="nav-link" @click="closeMenu">Órdenes</router-link>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <router-link to="/" class="nav-link" @click="closeMenu">Almacén</router-link>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <router-link to="/" class="nav-link logout" @click="logout">LogOut</router-link>
                 </li>

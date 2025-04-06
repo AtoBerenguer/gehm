@@ -8,9 +8,15 @@
             <p><strong>Modelo:</strong> {{ equipo.nombre_modelo }}</p>
             <p><strong>Número de Serie:</strong> {{ equipo.numero_serie }}</p>
             <p><strong>Estado:</strong> {{ equipo.estado }}</p>
-           <div class="Buttons">
+            <div class="Buttons">
                 <button class="closeBtn" @click="$emit('cerrarModal')">Cerrar</button>
-                <button v-if="roleId !== '3' " class="deleteBtn" @click="deleteEquipoID(equipo.id_inventario)">Eliminar </button>
+                <button 
+                    v-if="roleId !== '3'" 
+                    class="deleteBtn" 
+                    @click="darDeBajaEquipo(equipo.id_inventario)"
+                >
+                    Dar de baja
+                </button>
             </div> 
         </div>
     </div>
@@ -18,6 +24,7 @@
 
 <script>
 import axios from 'axios';
+
 export default {
     props: {
         equipo: Object,
@@ -31,19 +38,25 @@ export default {
         this.roleId = localStorage.getItem("rol_id");
     },
     methods: {
-        //Creamos un metodo con confirmación para eliminar del inventario el equipo que tenemos abierto en el
-         async deleteEquipoID(id_inventario) {
-             if (confirm("¿Está seguro de eliminar este equipo?")) {
-                 axios.delete(`http://localhost/BDD-MedicalEquipment/controller/inventary/deleteID_equipment.php?id_inventario=${id_inventario}`)
-                     .then(response => {
-                         console.log(response.data);
-                         this.$emit('cerrarModal');
-                     })
-                     .catch(error => {
-                         console.log("Error: ", error);
-                     });
-             }
-         }
+        async darDeBajaEquipo(id_inventario) {
+            if (confirm("¿Está seguro de dar de baja este equipo?")) {
+                const formData = new FormData();
+                formData.append('id_inventario', id_inventario);
+
+                try {
+                    const response = await axios.post(
+                        'http://localhost/BDD-MedicalEquipment/controller/inventary/darBajaEquipo.php',
+                        formData
+                    );
+                    console.log(response.data);
+                    alert("Equipo dado de baja con éxito.");
+                    this.$emit('cerrarModal');
+                } catch (error) {
+                    console.error("Error al cambiar el estado del equipo:", error);
+                    alert("Ocurrió un error.");
+                }
+            }
+        }
     }
 };
 </script>
