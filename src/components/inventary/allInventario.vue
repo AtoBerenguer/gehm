@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h2 class="title">Inventario de Equipos</h2>
-        <button @click="abrirModal()" class="btn-create">Crear Equipo</button>
+        <button v-if="rolId == '1'" @click="abrirModal()" class="btn-create">Crear Equipo</button>
 
         <!-- Filtros por columna -->
         <div class="filters">
@@ -36,6 +36,7 @@ export default {
     data() {
         return {
             equipos: [],
+            rolId: '',
             mostrarModal: false,
             mostrarModalEquipo: false,
             equipoSelecionado: null,
@@ -61,6 +62,8 @@ export default {
         }
     },
     mounted() { 
+        this.rolId = localStorage.getItem("rol_id");
+
         axios.get('http://localhost/BDD-MedicalEquipment/controller/inventary/CRUD_INVENTARY.php')
             .then(response => {
                 this.equipos = response.data;
@@ -68,6 +71,8 @@ export default {
             .catch(error => {
                 console.log("Error: ", error);
             });
+        this.rolId = localStorage.getItem("rol_id");
+
     },
     methods: {
         abrirModal() {
