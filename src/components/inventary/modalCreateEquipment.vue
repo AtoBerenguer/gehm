@@ -1,35 +1,137 @@
 <template>
   <div class="modal">
     <div class="modal-content">
-      <h2>Crear equipo</h2>
-
-
-      <label for="numero_serie">Número de Serie:</label>
-      <input v-model="nuevoEquipo.numero_serie" type="text" placeholder="Ingrese el número de serie">
-
-      <hr>
-
-
-      <label for="categoria_id">Categoría:</label>
-      <select v-model="nuevoEquipo.categoria_id" @change="cargarModelos">
-        <option v-for="categoria in categorias" :key="categoria.id_categoria" :value="categoria.id_categoria">
-          {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
-        </option>
+      <select v-model="opcionSeleccionada" @change="cambiarOpcion">
+        <option value="equipo">Crear Equipo</option>
+        <option value="marca">Crear Marca</option>
+        <option value="modelo">Crear Modelo</option>
+        <option value="categoria">Crear Categoria</option>
       </select>
 
-      <hr>
+
+      <div v-if="opcionSeleccionada === 'equipo'" class="crearEquipo">
+        <h2>Crear equipo</h2>
 
 
-      <label for="modelo_id">Modelo:</label>
-      <select v-model="nuevoEquipo.modelo_id" :disabled="!nuevoEquipo.categoria_id">
-        <option v-for="modelo in modelos" :key="modelo.id_modelo" :value="modelo.id_modelo">
-          {{ modelo.nombre_modelo }}
-        </option>
-      </select>
+        <label for="numero_serie">Número de Serie:</label>
+        <input v-model="nuevoEquipo.numero_serie" type="text" placeholder="Ingrese el número de serie">
+
+        <hr>
+
+
+        <label for="categoria_id">Categoría:</label>
+        <select v-model="nuevoEquipo.categoria_id" @change="cargarModelos">
+          <option v-for="categoria in categorias" :key="categoria.id_categoria" :value="categoria.id_categoria">
+            {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
+          </option>
+        </select>
+
+        <hr>
+
+
+        <label for="modelo_id">Modelo:</label>
+        <select v-model="nuevoEquipo.modelo_id" :disabled="!nuevoEquipo.categoria_id">
+          <option v-for="modelo in modelos" :key="modelo.id_modelo" :value="modelo.id_modelo">
+            {{ modelo.nombre_modelo }}
+          </option>
+        </select>
+        <button class="guardarBtn" @click="guardarEquipo">Guardar</button>
+
+
+      </div>
+      <div v-if="opcionSeleccionada === 'marca'" class="crearEquipo">
+        <h2>Crear Marca</h2>
+
+
+        <label for="numero_serie">Número de Serie:</label>
+        <input v-model="nuevoEquipo.numero_serie" type="text" placeholder="Ingrese el número de serie">
+
+        <hr>
+
+
+        <label for="categoria_id">Categoría:</label>
+        <select v-model="nuevoEquipo.categoria_id" @change="cargarModelos">
+          <option v-for="categoria in categorias" :key="categoria.id_categoria" :value="categoria.id_categoria">
+            {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
+          </option>
+        </select>
+
+        <hr>
+
+
+        <label for="modelo_id">Modelo:</label>
+        <select v-model="nuevoEquipo.modelo_id" :disabled="!nuevoEquipo.categoria_id">
+          <option v-for="modelo in modelos" :key="modelo.id_modelo" :value="modelo.id_modelo">
+            {{ modelo.nombre_modelo }}
+          </option>
+        </select>
+        <button class="guardarBtn" @click="guardarEquipo">Guardar</button>
+
+
+      </div>
+      <div v-if="opcionSeleccionada === 'modelo'" class="crearEquipo">
+        <h2>Crear Modelo</h2>
+
+
+        <label for="numero_serie">Número de Serie:</label>
+        <input v-model="nuevoEquipo.numero_serie" type="text" placeholder="Ingrese el número de serie">
+
+        <hr>
+
+
+        <label for="categoria_id">Categoría:</label>
+        <select v-model="nuevoEquipo.categoria_id" @change="cargarModelos">
+          <option v-for="categoria in categorias" :key="categoria.id_categoria" :value="categoria.id_categoria">
+            {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
+          </option>
+        </select>
+
+        <hr>
+
+
+        <label for="modelo_id">Modelo:</label>
+        <select v-model="nuevoEquipo.modelo_id" :disabled="!nuevoEquipo.categoria_id">
+          <option v-for="modelo in modelos" :key="modelo.id_modelo" :value="modelo.id_modelo">
+            {{ modelo.nombre_modelo }}
+          </option>
+        </select>
+        <button class="guardarBtn" @click="guardarEquipo">Guardar</button>
+
+
+      </div>
+      <div v-if="opcionSeleccionada === 'categoria'" class="crearEquipo">
+        <h2>Crear Categoria</h2>
+
+
+        <label for="numero_serie">Número de Serie:</label>
+        <input v-model="nuevoEquipo.numero_serie" type="text" placeholder="Ingrese el número de serie">
+
+        <hr>
+
+
+        <label for="categoria_id">Categoría:</label>
+        <select v-model="nuevoEquipo.categoria_id" @change="cargarModelos">
+          <option v-for="categoria in categorias" :key="categoria.id_categoria" :value="categoria.id_categoria">
+            {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
+          </option>
+        </select>
+
+        <hr>
+
+
+        <label for="modelo_id">Modelo:</label>
+        <select v-model="nuevoEquipo.modelo_id" :disabled="!nuevoEquipo.categoria_id">
+          <option v-for="modelo in modelos" :key="modelo.id_modelo" :value="modelo.id_modelo">
+            {{ modelo.nombre_modelo }}
+          </option>
+        </select>
+        <button class="guardarBtn" @click="guardarEquipo">Guardar</button>
+
+
+      </div>
 
       <div class="modal-buttons">
-        <button @click="guardarEquipo">Guardar</button>
-        <button @click="$emit('cerrarModal')">Cancelar</button>
+        <button class="closeBtn" @click="$emit('cerrarModal')">Cancelar</button>
       </div>
     </div>
   </div>
@@ -42,6 +144,7 @@ export default {
   props: ["mostrarModal"],
   data() {
     return {
+      opcionSeleccionada: "equipo", // Opción por defecto
       nuevoEquipo: {
         numero_serie: "",
         categoria_id: "",
@@ -167,7 +270,9 @@ select:focus {
   justify-content: space-between;
 }
 
-button {
+.guardarBtn {
+  background-color: #1abc9c;
+  color: white;
   padding: 10px 20px;
   border-radius: 8px;
   border: none;
@@ -175,21 +280,13 @@ button {
   font-size: 1rem;
 }
 
-button:first-child {
-  background-color: #1abc9c;
+.closeBtn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  background-color: red;
   color: white;
-}
-
-button:first-child:hover {
-  background-color: #16a085;
-}
-
-button:last-child {
-  background-color: #e74c3c;
-  color: white;
-}
-
-button:last-child:hover {
-  background-color: #c0392b;
 }
 </style>

@@ -3,7 +3,7 @@
   <footer class="footer">
     <div class="footer-content">
       <p>&copy; {{ new Date().getFullYear() }} Medical Equipment. Todos los derechos reservados.</p>
-      <button v-if="rolId == '1'" @click="abrirModal()">Crear nuevo usuario</button>
+      <button v-if="rolId == '1'" @click="abrirModal()">Usuarios</button>
     </div>
     <modalCrearUser v-if="mostrarModal" @cerrarModal="cerrarModal"/>
   </footer>

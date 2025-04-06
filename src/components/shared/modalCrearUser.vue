@@ -1,10 +1,12 @@
 <template>
     <div class="modal">
         <div class="modal-content">
+            
             <select v-model="opcionSeleccionada" @change="cambiarOpcion">
                 <option value="crear">Crear Usuario</option>
-                <option value="">Modificar Usuario</option>
+                <option value="mod">Modificar Usuario</option>
             </select>
+
             <div v-if="mostrarCrearUsuario" class="crearUser">
 
                 <h2>Crear Usuario</h2>
