@@ -11,7 +11,7 @@
             <div class="Buttons">
                 <button class="closeBtn" @click="$emit('cerrarModal')">Cerrar</button>
                 <button 
-                    v-if="roleId !== '3'" 
+                    v-if="roleId == '1'" 
                     class="deleteBtn" 
                     @click="darDeBajaEquipo(equipo.id_inventario)"
                 >
