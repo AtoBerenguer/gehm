@@ -51,7 +51,7 @@ body {
 
 .app-container {
   display: flex;
-  height: 93vh;
+  height: 100%;
   width: 100%;
 }
 
