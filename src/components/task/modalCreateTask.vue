@@ -77,6 +77,8 @@ export default {
 
         // Limpiar formulario ya que no vamos a cerrar el modal automaticamente.
         this.nuevaTarea = { inventario_id: "", descripcion: "", usuario_id: "" };
+        
+        this.$emit("cerrarModalTask");
       } catch (error) {
         console.error("Error al guardar tarea:", error);
       }

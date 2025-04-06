@@ -142,14 +142,19 @@ export default {
     },
     cerrarModalTask() {
       this.mostrarModal = false;
+      window.location.reload();
+
     },
     abrirModalTaskSelect(tarea) {
       this.tareaSeleccionada = tarea;
       this.mostrarModalTask = true;
+
     },
     cerrarModalTareaSelect() {
       this.mostrarModalTask = false;
       this.tareaSeleccionada = null;
+      window.location.reload();
+
     },
   },
 };
@@ -158,16 +163,16 @@ export default {
 
 <style scoped>
 .container {
-  background: linear-gradient(135deg, #2c3e50, #398aa5);
-  padding: 1.5rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  margin: auto;
-  margin-top: 1rem;
+    background: linear-gradient(135deg, #2c3e50, #398aa5);
+    padding: 1.5rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 80%;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 10px;
 }
 
 .title {
