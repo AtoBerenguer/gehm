@@ -2,7 +2,7 @@
   <div class="container">
     <div class="listaTareas">
       <h2 class="title">Lista de Tareas</h2>
-      
+
       <div class="task-input">
         <button class="btnMod" @click="abrirModalTask()" v-if="rolId !== '3'">Agregar</button>
         <button class="btnMod" v-if="rolId !== '3'" @click="cargarTodasOT">Cargar todas las tareas</button>
@@ -10,23 +10,21 @@
 
       <!-- Filtros por columna -->
       <div class="filters">
-        <input 
-          v-for="(label, key) in headers" 
-          :key="key" 
-          v-model="filters[key]" 
-          :placeholder="`Filtrar por ${label}`" 
-          class="filter-input" 
-        />
+        <input v-for="(label, key) in headers" :key="key" v-model="filters[key]" :placeholder="`Filtrar por ${label}`"
+          class="filter-input" />
       </div>
 
-      <DataTable 
-        :data="filteredTareas" 
-        :headers="headers" 
-        :itemsPerPage="15" 
-      />
+      <DataTable :data="filteredTareas" 
+      :headers="headers" 
+      :itemsPerPage="15" 
+      @objetoSeleccionado="abrirModalTaskSelect" />
 
       <modalCreateTask v-if="mostrarModal" @cerrarModalTask="cerrarModalTask" />
-      <modalTaskSelect v-if="mostrarModalTask" :tarea="tareaSeleccionada" />
+
+      <modalTaskSelect v-if="mostrarModalTask" :tarea="tareaSeleccionada"
+        @cerrarModalTareaSelect="cerrarModalTareaSelect" />
+
+
     </div>
   </div>
 </template>
@@ -84,7 +82,7 @@ export default {
           equipoId: task.inventario_id,
           nombreModelo: task.nombre_modelo,
           averia: task.descripcion,
-          estado: task.estado ? "Completada" : "Pendiente",
+          estado: task.estado,
           nombre_categoria: task.nombre_categoria
         }));
       })
@@ -103,7 +101,7 @@ export default {
             equipoId: task.inventario_id,
             nombreModelo: task.nombre_modelo,
             averia: task.descripcion,
-            estado: task.estado ? "Completada" : "Pendiente",
+            estado: task.estado,
             nombre_categoria: task.nombre_categoria
           }));
         })
@@ -116,7 +114,16 @@ export default {
     },
     cerrarModalTask() {
       this.mostrarModal = false;
-    }
+    },
+    abrirModalTaskSelect(tarea) {
+      this.tareaSeleccionada = tarea;
+      this.mostrarModalTask = true;
+    },
+    cerrarModalTareaSelect() {
+      this.mostrarModalTask = false;
+      this.tareaSeleccionada = null;
+      
+    },
   },
 };
 </script>

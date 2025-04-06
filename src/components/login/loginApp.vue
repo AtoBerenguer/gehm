@@ -27,7 +27,7 @@ export default {
     fakeLogin() { // funcion para simular el login sin base de datos
       this.$router.push({ name: "mainContent" });
     },
-    async loginIn() { // Funcion asincrona para realizar la petición al backend y verificar el login
+    async loginIn() { // Funcion  para realizar la petición al backend y verificar el login
       try {
         const response = await fetch("http://localhost/BDD-MedicalEquipment/controller/users/logIn.php", {
           method: "POST",
@@ -61,6 +61,7 @@ export default {
   max-width: 400px;
   margin: 10rem auto;
   text-align: center;
+  max-height: 300px;
   
 }
 
