@@ -3,9 +3,10 @@
     <div class="modal-content">
       <select v-model="opcionSeleccionada" @change="cambiarOpcion">
         <option value="equipo">Crear Equipo</option>
+        <option value="categoria">Crear Categoria</option>
         <option value="marca">Crear Marca</option>
         <option value="modelo">Crear Modelo</option>
-        <option value="categoria">Crear Categoria</option>
+        
       </select>
 
 
