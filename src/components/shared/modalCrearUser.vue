@@ -13,12 +13,13 @@
                 <form @submit.prevent="actualizarPasswordUser">
 
                     <h2>Modificar contraseña</h2>
-                    <label for="password">
-                        Contraseña:
-                    </label>
+                    
+                    <label for="password">Password:</label>
+                    <input v-model="nuevoUser.password" type="password" placeholder="Ingrese el password">
 
 
-                    <div v-if="errorPasswordUser" class="error-text">{{ errorRolUser }}</div>
+                    <div v-if="errorPasswordUser" class="error-text">{{ errorPasswordUser }}</div>
+                    <div v-if="ValidatePasswordUser" class="validate-text">{{ ValidatePasswordUser }}</div>
                     <button class="guardarBtn" type="submit">Actualizar</button>
 
                 </form>
@@ -92,12 +93,14 @@ export default {
             errorUser: "",
             errorRolUser: "",
             errorPasswordUser: "",
+            ValidatePasswordUser: "",
             opcionSeleccionada: "password",
             mostrarCrearUsuario: true,
             mostrarModUser: false,
             mostrarModPassword: false,
             usuarioSeleccionado: null,
             rolId: null,
+            id_usuario:null,
             nuevoUser: {
                 nombre: "",
                 apellidos: "",
@@ -120,7 +123,9 @@ export default {
         this.cargarUsuarios();
         this.rolId = localStorage.getItem("rol_id");
         this.cambiarOpcion();
-
+        this.id_usuario = localStorage.getItem("usuario_id");
+        
+        
     },
     methods: {
         cambiarOpcion() {
@@ -173,7 +178,6 @@ export default {
                     console.error("Error creando usuario:", error);
                 });
         },
-
         actualizarRolUser() {
             this.errorRolUser = "";
             const { id_usuario, rol_id } = this.updateUser;
@@ -195,6 +199,33 @@ export default {
                     console.error("Error actualizando rol de usuario:", error);
                 });
 
+        },
+        actualizarPasswordUser(){
+            this.errorPasswordUser = "";
+            const { password } = this.nuevoUser;
+            if (!password) {
+                this.errorPasswordUser = "Contraseña obligaria";
+                return;
+            }
+            if( password.length < 5){
+                this.errorPasswordUser = "La contraseña debe tener al menos 5 caracteres";
+                return;
+            }
+
+            let formData = new FormData();
+            formData.append("id_usuario", this.id_usuario);
+            formData.append("password", password);
+
+            axios.post("http://localhost/BDD-MedicalEquipment/controller/users/modPassword.php", formData)
+                .then(response => {
+                    console.log(response.data);
+                    this.cargarUsuarios();
+                    this.ValidatePasswordUser ="Contraseña actualizada correctamente";
+                })
+                .catch(error => {
+                    console.error("Error actualizando contraseña de usuario:", error);
+                });
+                this.nuevoUser.password = "";
         }
 
     }
@@ -202,6 +233,12 @@ export default {
 </script>
 
 <style scoped>
+.validate-text{
+    color: green;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
 .error-text {
     color: red;
     font-size: 0.9rem;
