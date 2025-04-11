@@ -111,7 +111,7 @@ export default {
   props: ["mostrarModal"],
   data() {
     return {
-      opcionSeleccionada: "equipo", // Opción por defecto
+      opcionSeleccionada: "equipo", 
       nuevoEquipo: {
         numero_serie: "",
         categoria_id: "",
@@ -155,7 +155,6 @@ export default {
     },
 
     async guardarEquipo() {
-      // Verificación de campos obligatorios
       const { numero_serie, categoria_id, modelo_id } = this.nuevoEquipo;
       if (!numero_serie || !categoria_id || !modelo_id) {
         alert("Todos los campos son obligatorios.");
@@ -163,18 +162,17 @@ export default {
       }
 
       try {
-        // Crear FormData y agregar campos
+        
         let formData = new FormData();
         formData.append("categoria_id", categoria_id);
         formData.append("modelo_id", modelo_id);
         formData.append("numero_serie", numero_serie);
 
-        // Realizar la petición POST
         const response = await axios.post(
           "http://localhost/BDD-MedicalEquipment/controller/inventary/create_equipment.php",
           formData,
           {
-            headers: { //Usamos el formData para enviar el contenido a la petición
+            headers: { 
               "Content-Type": "multipart/form-data"
             }
           }
