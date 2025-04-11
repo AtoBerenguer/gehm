@@ -150,7 +150,7 @@ export default {
     async cargarMarcas() {
       const response = await axios.get("http://localhost/BDD-MedicalEquipment/controller/brands/getBrands.php");
       this.marcas = response.data;
-      console.log(this.marcas);
+      
 
     },
 
