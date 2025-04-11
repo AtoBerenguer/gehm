@@ -18,6 +18,8 @@
                     Dar de baja
                 </button>
             </div> 
+            <p v-if="avisoBaja" class="error-text">{{ avisoBaja }}</p>
+
         </div>
     </div>
 </template>
@@ -31,7 +33,8 @@ export default {
     },
     data() {
         return {
-            roleId: null
+            roleId: null,
+            avisoBaja: '',
         };
     },
     mounted() {
@@ -39,6 +42,7 @@ export default {
     },
     methods: {
         async darDeBajaEquipo(id_inventario) {
+            this.avisoBaja = ''; 
             if (confirm("¿Está seguro de dar de baja este equipo?")) {
                 const formData = new FormData();
                 formData.append('id_inventario', id_inventario);
@@ -49,8 +53,8 @@ export default {
                         formData
                     );
                     console.log(response.data);
-                    alert("Equipo dado de baja con éxito.");
-                    this.$emit('cerrarModal');
+                    this.avisoBaja="Equipo dado de baja con éxito.";
+                    
                 } catch (error) {
                     console.error("Error al cambiar el estado del equipo:", error);
                     alert("Ocurrió un error.");
@@ -62,6 +66,11 @@ export default {
 </script>
 
 <style scoped>
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
 .modal {
     position: fixed;
     top: 0;
