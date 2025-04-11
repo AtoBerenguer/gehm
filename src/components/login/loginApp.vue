@@ -26,7 +26,7 @@ export default {
   methods: {
     // fakeLogin() { // funcion para simular el login sin base de datos
     //   this.$router.push({ name: "tareasList" });
-    },
+    // },
     async loginIn() { 
       try {
         const response = await fetch("http://localhost/BDD-MedicalEquipment/controller/users/logIn.php", {
