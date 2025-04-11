@@ -8,7 +8,7 @@
             </select>
 
             <div v-if="mostrarCrearUsuario" class="crearUser">
-
+                <form @submit.prevent="guardarUser">
                 <h2>Crear Usuario</h2>
                 <label for="nombre">Nombre:</label>
                 <input v-model="nuevoUser.nombre" type="text" placeholder="Ingrese el nombre">
@@ -29,11 +29,14 @@
                     <option value="3">Tecnico</option>
                 </select>
 
-                <button class="guardarBtn" @click="guardarUser">Guardar</button>
+                <div v-if="errorUser" class="error-text">{{ errorUser }}</div>
 
+                <button class="guardarBtn" type="submit">Guardar</button>
+            </form>
             </div>
 
             <div v-if="mostrarModUser" class="modUsers">
+                <form @submit.prevent="actualizarRolUser">
                 <h2>Modificar rol de usuario</h2>
                 <label for="id_usuario">Usuarios: </label>
                 <select v-model="updateUser.id_usuario" name="id_usuario" id="id_usuario">
@@ -47,8 +50,9 @@
                     <option value="2">Supervisor</option>
                     <option value="3">Tecnico</option>
                 </select>
-                <button class="guardarBtn" @click="actualizarRolUser">Actualizar</button>
-
+                <div v-if="errorRolUser" class="error-text">{{ errorRolUser }}</div>
+                <button class="guardarBtn" type="submit">Actualizar</button>
+            </form>
             </div>
 
             
@@ -66,6 +70,8 @@ export default {
     props: ["mostrarModal"],
     data() {
         return {
+            errorUser:"",
+            errorRolUser: "",
             opcionSeleccionada: "crear",
             mostrarCrearUsuario: true,
             mostrarModUser: false,
@@ -84,6 +90,7 @@ export default {
             },
             usuarios: [],
         }
+        
 
 
     },
@@ -104,7 +111,6 @@ export default {
             axios.get("http://localhost/BDD-MedicalEquipment/controller/users/getAll_users.php")
                 .then(response => {
                     this.usuarios = response.data;
-                    console.log(this.usuarios);
                     
                 })
                 .catch(error => {
@@ -112,9 +118,10 @@ export default {
                 });
         },
         guardarUser(){
+            this.errorUser = "";
             const { nombre, apellidos, email, password, rol_id } = this.nuevoUser;
             if (!nombre || !apellidos || !email || !password || !rol_id) {
-                alert("Todos los campos son obligatorios");
+                this.errorUser ="Todos los campos son obligatorios";
                 return;
             }
 
@@ -128,7 +135,6 @@ export default {
             axios.post("http://localhost/BDD-MedicalEquipment/controller/users/create_users.php", formData)
                 .then(response => {
                     console.log("Usuario creado:", response.data);
-                    alert("Usuario creado con éxito");
                     this.cargarUsuarios();
                 })
                 .catch(error => {
@@ -137,9 +143,10 @@ export default {
         },
 
         actualizarRolUser(){
+            this.errorRolUser = "";
             const { id_usuario, rol_id } = this.updateUser;
             if (!id_usuario || !rol_id) {
-                alert("Todos los campos son obligatorios");
+                this.errorRolUser="Todos los campos son obligatorios";
                 return;
             }
 
@@ -150,7 +157,6 @@ export default {
             axios.post("http://localhost/BDD-MedicalEquipment/controller/users/modRolUser.php", formData)
                 .then(response => {
                     console.log("Rol de usuario actualizado:", response.data);
-                    alert("Rol de usuario actualizado con éxito");
                     this.cargarUsuarios();
                 })
                 .catch(error => {
@@ -164,6 +170,12 @@ export default {
 </script>
 
 <style scoped>
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
 .guardarBtn{
     background-color: #1abc9c;
     color: white;
