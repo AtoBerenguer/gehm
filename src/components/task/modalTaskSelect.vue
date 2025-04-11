@@ -8,13 +8,17 @@
             <p><strong>Estado:</strong> {{ tarea.estado }}</p>
             <p><strong>Descripción averia:</strong> {{ tarea.averia }}</p>
             <p><strong>Comentario técnico:</strong> {{ tarea.comentario }}</p>
-            
-            <div class="descripcion-container" v-if="tarea.estado === 'Pendiente'">
-                <input v-model="comentario" class="descripcion" type="text"
-                    placeholder="Descripción de la reparación" />
-                <button class="updateBtn" @click="actualizarComentario">Actualizar</button>
-            </div>
-            
+
+
+            <form @submit.prevent="actualizarComentario">
+                <div class="descripcion-container" v-if="tarea.estado === 'Pendiente'">
+                    <input v-model="comentario" class="descripcion" type="text"
+                        placeholder="Descripción de la reparación" />
+                    <button class="updateBtn" type="submit">Actualizar</button>
+                </div>
+            </form>
+            <p v-if="avisoUpdate" class="error-text">{{ avisoUpdate }}</p>
+
             <div class="Buttons">
                 <button class="closeBtn" @click="$emit('cerrarModalTareaSelect')">X</button>
                 <button v-if="tarea.estado === 'Pendiente'" class="finalizar" @click="finalizarTarea">Finalizar</button>
@@ -34,6 +38,7 @@ export default {
         return {
             roleId: null,
             comentario: '',
+            avisoUpdate: '',
         };
     },
     mounted() {
@@ -42,9 +47,10 @@ export default {
     },
     methods: {
         actualizarComentario() {
+            this.avisoUpdate = ''; // Reiniciar el aviso de actualización
 
             if (this.comentario.trim() === '') {
-                alert('El comentario no puede estar vacío.');
+                this.avisoUpdate='El comentario no puede estar vacío.';
                 return;
             }
 
@@ -54,8 +60,8 @@ export default {
 
             axios.post('http://localhost/BDD-MedicalEquipment/controller/tickets/updateComentary.php', formData)
                 .then(response => {
-                    console.log(response.data);
-                    alert(response.data);
+                    
+                    this.avisoUpdate=(response.data);
                 })
                 .catch(error => {
                     console.error('Hubo un error:', error);
@@ -69,7 +75,7 @@ export default {
                 axios.post('http://localhost/BDD-MedicalEquipment/controller/tickets/closeTicket.php', formData)
                     .then(response => {
                         console.log(response.data);
-                        alert(response.data);
+                        
                         this.$emit('cerrarModalTareaSelect');
                     })
                     .catch(error => {
@@ -83,6 +89,11 @@ export default {
 </script>
 
 <style scoped>
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
 .finalizar {
     padding: 8px 16px;
     border-radius: 8px;
@@ -160,7 +171,7 @@ export default {
     text-align: left;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     color: #ecf0f1;
-    
+
 
 }
 
@@ -169,8 +180,9 @@ h3 {
     color: #1abc9c;
     margin-bottom: 15px;
 }
-p{
-overflow-wrap: break-word;
-max-width: 100%;
+
+p {
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 </style>
