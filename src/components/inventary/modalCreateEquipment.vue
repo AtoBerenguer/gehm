@@ -189,23 +189,20 @@ export default {
     },
 
     async guardarMarca() {
-      // Verificación de campos obligatorios
       if (!this.marca) {
         alert("El campo Marca es obligatorio.");
         return;
       }
 
       try {
-        // Crear FormData y agregar campos
         let formData = new FormData();
         formData.append("nombre_marca", this.marca);
 
-        // Realizar la petición POST
         const response = await axios.post(
           "http://localhost/BDD-MedicalEquipment/controller/brands/CRUDBRAND.php",
           formData,
           {
-            headers: { //Usamos el formData para enviar el contenido a la petición
+            headers: { 
               "Content-Type": "multipart/form-data"
             }
           }
@@ -219,23 +216,20 @@ export default {
 
     },
     async guardarCategoria() {
-      // Verificación de campos obligatorios
       if (!this.categoria) {
         alert("El campo Categoria es obligatorio.");
         return;
       }
 
       try {
-        // Crear FormData y agregar campos
         let formData = new FormData();
         formData.append("nombre_categoria", this.categoria);
 
-        // Realizar la petición POST
         const response = await axios.post(
           "http://localhost/BDD-MedicalEquipment/controller/categories/postCategory.php",
           formData,
           {
-            headers: { //Usamos el formData para enviar el contenido a la petición
+            headers: { 
               "Content-Type": "multipart/form-data"
             }
           }
@@ -249,7 +243,6 @@ export default {
 
     },
     async guardarModelo() {
-      // Verificación de campos obligatorios
       const { nombre_modelo, marca_id, categoria_id } = this.nuevoModelo;
       if (!nombre_modelo || !marca_id || !categoria_id) {
         alert("Todos los campos son obligatorios.");
@@ -257,18 +250,16 @@ export default {
       }
 
       try {
-        // Crear FormData y agregar campos
         let formData = new FormData();
         formData.append("nombre_modelo", nombre_modelo);
         formData.append("marca_id", marca_id);
         formData.append("categoria_id", categoria_id);
 
-        // Realizar la petición POST
         const response = await axios.post(
           "http://localhost/BDD-MedicalEquipment/controller/models/createModel.php",
           formData,
           {
-            headers: { //Usamos el formData para enviar el contenido a la petición
+            headers: { 
               "Content-Type": "multipart/form-data"
             }
           }
