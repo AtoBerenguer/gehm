@@ -3,10 +3,11 @@
   <footer class="footer">
     <div class="footer-content">
       <p>&copy; {{ new Date().getFullYear() }} Medical Equipment. Todos los derechos reservados.</p>
-      <button class="usersbtn" v-if="rolId == '1'" @click="abrirModal()">Usuarios</button>
+      <button class="usersbtn"  @click="abrirModal()">Usuarios</button>
     </div>
     <modalCrearUser v-if="mostrarModal" @cerrarModal="cerrarModal"/>
   </footer>
+  <!-- v-if="rolId == '1'" -->
 </template>
 <script>
 import modalCrearUser from './modalCrearUser.vue';

@@ -1,61 +1,80 @@
 <template>
     <div class="modal">
         <div class="modal-content">
-            
+
             <select v-model="opcionSeleccionada" @change="cambiarOpcion">
-                <option value="crear">Crear Usuario</option>
-                <option value="mod">Modificar Usuario</option>
+                <option value="password">Modificar Password</option>
+                <option v-if="rolId == '1'" value="crear">Crear Usuario</option>
+                <option v-if="rolId == '1'" value="mod">Modificar Usuario</option>
+                
             </select>
+
+            <div v-if="mostrarModPassword" class="modUsers">
+                <form @submit.prevent="actualizarPasswordUser">
+
+                    <h2>Modificar contraseña</h2>
+                    <label for="password">
+                        Contraseña:
+                    </label>
+
+
+                    <div v-if="errorPasswordUser" class="error-text">{{ errorRolUser }}</div>
+                    <button class="guardarBtn" type="submit">Actualizar</button>
+
+                </form>
+            </div>
 
             <div v-if="mostrarCrearUsuario" class="crearUser">
                 <form @submit.prevent="guardarUser">
-                <h2>Crear Usuario</h2>
-                <label for="nombre">Nombre:</label>
-                <input v-model="nuevoUser.nombre" type="text" placeholder="Ingrese el nombre">
+                    <h2>Crear Usuario</h2>
+                    <label for="nombre">Nombre:</label>
+                    <input v-model="nuevoUser.nombre" type="text" placeholder="Ingrese el nombre">
 
-                <label for="Apellidos">Apellidos:</label>
-                <input v-model="nuevoUser.apellidos" type="text" placeholder="Ingrese el apellidos">
+                    <label for="Apellidos">Apellidos:</label>
+                    <input v-model="nuevoUser.apellidos" type="text" placeholder="Ingrese el apellidos">
 
-                <label for="Email">Email:</label>
-                <input v-model="nuevoUser.email" type="email" placeholder="Ingrese el email">
+                    <label for="Email">Email:</label>
+                    <input v-model="nuevoUser.email" type="email" placeholder="Ingrese el email">
 
-                <label for="Password">Password:</label>
-                <input v-model="nuevoUser.password"  type="password" placeholder="Ingrese el password">
+                    <label for="Password">Password:</label>
+                    <input v-model="nuevoUser.password" type="password" placeholder="Ingrese el password">
 
-                <label for="rol_id">Rol:</label>
-                <select v-model="nuevoUser.rol_id" name="rol_id" id="rol_id">
-                    <option value="1">Administrador</option>
-                    <option value="2">Supervisor</option>
-                    <option value="3">Tecnico</option>
-                </select>
+                    <label for="rol_id">Rol:</label>
+                    <select v-model="nuevoUser.rol_id" name="rol_id" id="rol_id">
+                        <option value="1">Administrador</option>
+                        <option value="2">Supervisor</option>
+                        <option value="3">Tecnico</option>
+                    </select>
 
-                <div v-if="errorUser" class="error-text">{{ errorUser }}</div>
+                    <div v-if="errorUser" class="error-text">{{ errorUser }}</div>
 
-                <button class="guardarBtn" type="submit">Guardar</button>
-            </form>
+                    <button class="guardarBtn" type="submit">Guardar</button>
+                </form>
             </div>
 
             <div v-if="mostrarModUser" class="modUsers">
                 <form @submit.prevent="actualizarRolUser">
-                <h2>Modificar rol de usuario</h2>
-                <label for="id_usuario">Usuarios: </label>
-                <select v-model="updateUser.id_usuario" name="id_usuario" id="id_usuario">
-                    <option v-for="usuario in usuarios" :key="usuario.id_usuario" :value="usuario.id_usuario">
-                      {{ usuario.id_usuario }} -  {{ usuario.nombre }} {{ usuario.apellidos }}
-                    </option>
-                </select>
-                <label for="rol_id">Rol:</label>
-                <select v-model="updateUser.rol_id" name="rol_id" id="rol_id">
-                    <option value="1">Administrador</option>
-                    <option value="2">Supervisor</option>
-                    <option value="3">Tecnico</option>
-                </select>
-                <div v-if="errorRolUser" class="error-text">{{ errorRolUser }}</div>
-                <button class="guardarBtn" type="submit">Actualizar</button>
-            </form>
+                    <h2>Modificar rol de usuario</h2>
+                    <label for="id_usuario">Usuarios: </label>
+                    <select v-model="updateUser.id_usuario" name="id_usuario" id="id_usuario">
+                        <option v-for="usuario in usuarios" :key="usuario.id_usuario" :value="usuario.id_usuario">
+                            {{ usuario.id_usuario }} - {{ usuario.nombre }} {{ usuario.apellidos }}
+                        </option>
+                    </select>
+                    <label for="rol_id">Rol:</label>
+                    <select v-model="updateUser.rol_id" name="rol_id" id="rol_id">
+                        <option value="1">Administrador</option>
+                        <option value="2">Supervisor</option>
+                        <option value="3">Tecnico</option>
+                    </select>
+                    <div v-if="errorRolUser" class="error-text">{{ errorRolUser }}</div>
+                    <button class="guardarBtn" type="submit">Actualizar</button>
+                </form>
             </div>
 
             
+
+
             <div class="modal-buttons">
                 <button class="closeBtn" @click="$emit('cerrarModal')">Cerrar</button>
             </div>
@@ -70,58 +89,71 @@ export default {
     props: ["mostrarModal"],
     data() {
         return {
-            errorUser:"",
+            errorUser: "",
             errorRolUser: "",
-            opcionSeleccionada: "crear",
+            errorPasswordUser: "",
+            opcionSeleccionada: "password",
             mostrarCrearUsuario: true,
             mostrarModUser: false,
+            mostrarModPassword: false,
             usuarioSeleccionado: null,
+            rolId: null,
             nuevoUser: {
                 nombre: "",
                 apellidos: "",
                 email: "",
                 password: "",
                 rol_id: "",
-                
+
             },
-            updateUser:{
+            updateUser: {
                 id_usuario: "",
                 rol_id: "",
             },
             usuarios: [],
         }
-        
+
 
 
     },
     mounted() {
         this.cargarUsuarios();
+        this.rolId = localStorage.getItem("rol_id");
+        this.cambiarOpcion();
+
     },
     methods: {
         cambiarOpcion() {
-            if (this.opcionSeleccionada === "crear") {
-                this.mostrarCrearUsuario = true;
+            if (this.opcionSeleccionada === "password") {
+                this.mostrarCrearUsuario = false;
                 this.mostrarModUser = false;
-            } else {
+                this.mostrarModPassword = true;
+            } else if (this.opcionSeleccionada === "mod") {
                 this.mostrarCrearUsuario = false;
                 this.mostrarModUser = true;
+                this.mostrarModPassword = false;
+            } else if (this.opcionSeleccionada === "crear") {
+                this.mostrarCrearUsuario = true;
+                this.mostrarModUser = false;
+                this.mostrarModPassword = false;
             }
+
         },
         cargarUsuarios() {
             axios.get("http://localhost/BDD-MedicalEquipment/controller/users/getAll_users.php")
                 .then(response => {
                     this.usuarios = response.data;
-                    
+
                 })
                 .catch(error => {
                     console.error("Error cargando usuarios:", error);
                 });
         },
-        guardarUser(){
+        guardarUser() {
             this.errorUser = "";
             const { nombre, apellidos, email, password, rol_id } = this.nuevoUser;
             if (!nombre || !apellidos || !email || !password || !rol_id) {
-                this.errorUser ="Todos los campos son obligatorios";
+                this.errorUser = "Todos los campos son obligatorios";
                 return;
             }
 
@@ -142,11 +174,11 @@ export default {
                 });
         },
 
-        actualizarRolUser(){
+        actualizarRolUser() {
             this.errorRolUser = "";
             const { id_usuario, rol_id } = this.updateUser;
             if (!id_usuario || !rol_id) {
-                this.errorRolUser="Todos los campos son obligatorios";
+                this.errorRolUser = "Todos los campos son obligatorios";
                 return;
             }
 
@@ -156,7 +188,7 @@ export default {
 
             axios.post("http://localhost/BDD-MedicalEquipment/controller/users/modRolUser.php", formData)
                 .then(response => {
-                    console.log("Rol de usuario actualizado:", response.data);
+                    console.log(response.data);
                     this.cargarUsuarios();
                 })
                 .catch(error => {
@@ -171,12 +203,13 @@ export default {
 
 <style scoped>
 .error-text {
-  color: red;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+    color: red;
+    font-size: 0.9rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
-.guardarBtn{
+
+.guardarBtn {
     background-color: #1abc9c;
     color: white;
     padding: 10px 20px;
@@ -185,6 +218,7 @@ export default {
     cursor: pointer;
     font-size: 1rem;
 }
+
 .modal {
     position: fixed;
     top: 0;
@@ -254,6 +288,4 @@ select:focus {
     background-color: red;
     color: white;
 }
-
-
 </style>
