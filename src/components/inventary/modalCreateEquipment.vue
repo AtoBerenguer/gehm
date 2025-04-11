@@ -38,7 +38,7 @@
           </option>
         </select>
         <p v-if="errorEquipo" class="error-text">{{ errorEquipo }}</p>
-
+        <hr>
         <button class="guardarBtn" type="submit">Guardar</button>
 
       </form>
@@ -84,6 +84,7 @@
             {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
           </option>
         </select>
+        <hr>
         <p v-if="errorModelo" class="error-text">{{ errorModelo }}</p>
 
         <button class="guardarBtn" type="submit">Guardar</button>
