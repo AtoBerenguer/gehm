@@ -1,6 +1,7 @@
 <template>
   <div class="modal">
     <div class="modal-content">
+      <form @submit.prevent="crearTarea">
       <h2>Crear tarea</h2>
 
       <label for="inventario_id">Equipo:</label>
@@ -17,11 +18,14 @@
           {{ tecnico.id_usuario }} - {{ tecnico.nombre }} {{ tecnico.apellidos }}
         </option>
       </select>
-
+      <div v-if="errorTask" class="error-text">{{ errorTask }}</div>
       <div class="modal-buttons">
-        <button @click="crearTarea">Guardar</button>
+        
         <button @click="$emit('cerrarModalTask')">Cancelar</button>
+        <button type="submit">Guardar</button>
+
       </div>
+    </form>
     </div>
   </div>
 </template>
@@ -38,7 +42,8 @@ export default {
         inventario_id: "",
         descripcion: "",
         usuario_id: ""
-      }
+      },
+      errorTask:"",
     };
   },
   mounted() {
@@ -54,9 +59,10 @@ export default {
       }
     },
     async crearTarea() {
+      this.errorTask = "";
       const { inventario_id, descripcion, usuario_id } = this.nuevaTarea;
       if (!inventario_id || !descripcion || !usuario_id) {
-        alert("Todos los campos son obligatorios");
+        this.errorTask="Todos los campos son obligatorios";
         return;
       }
 
@@ -73,7 +79,7 @@ export default {
         );
 
         console.log("Tarea creada:", response.data);
-        alert("Tarea creada con éxito");
+        // alert("Tarea creada con éxito");
 
         // Limpiar formulario ya que no vamos a cerrar el modal automaticamente.
         this.nuevaTarea = { inventario_id: "", descripcion: "", usuario_id: "" };
@@ -89,6 +95,12 @@ export default {
 
   
   <style scoped>
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
 .modal {
   position: fixed;
   top: 0;
@@ -157,21 +169,21 @@ button {
   font-size: 1rem;
 }
 
-button:first-child {
+button:last-child {
   background-color: #1abc9c;
   color: white;
 }
 
-button:first-child:hover {
+button:last-child:hover {
   background-color: #16a085;
 }
 
-button:last-child {
+button:first-child {
   background-color: #e74c3c;
   color: white;
 }
 
-button:last-child:hover {
+button:first-child:hover {
   background-color: #c0392b;
 }
 </style>
