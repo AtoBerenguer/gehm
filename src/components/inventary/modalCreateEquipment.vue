@@ -11,6 +11,7 @@
 
 
       <div v-if="opcionSeleccionada === 'equipo'">
+        <form @submit.prevent="guardarEquipo">
         <h2>Crear equipo</h2>
 
 
@@ -36,24 +37,29 @@
             {{ modelo.nombre_modelo }}
           </option>
         </select>
-        <button class="guardarBtn" @click="guardarEquipo">Guardar</button>
+        <p v-if="errorEquipo" class="error-text">{{ errorEquipo }}</p>
 
+        <button class="guardarBtn" type="submit">Guardar</button>
 
+      </form>
       </div>
+      
       <div v-if="opcionSeleccionada === 'marca'">
+        <form @submit.prevent="guardarMarca">
         <h2>Crear Marca</h2>
 
 
         <label for="numero_serie">Marca:</label>
         <input v-model="marca" type="text" placeholder="Ingrese el nombre de la Marca">
-
+        <p v-if="errorMarca" class="error-text">{{ errorMarca }}</p>
         <hr>
 
-        <button class="guardarBtn" @click="guardarMarca">Guardar</button>
+        <button class="guardarBtn" type="submit">Guardar</button>
 
-
+      </form>
       </div>
       <div v-if="opcionSeleccionada === 'modelo'">
+        <form @submit.prevent="guardarModelo">
         <h2>Crear Modelo</h2>
 
 
@@ -78,22 +84,26 @@
             {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
           </option>
         </select>
+        <p v-if="errorModelo" class="error-text">{{ errorModelo }}</p>
 
-        <button class="guardarBtn" @click="guardarModelo">Guardar</button>
+        <button class="guardarBtn" type="submit">Guardar</button>
 
-
+      </form>
       </div>
+
       <div v-if="opcionSeleccionada === 'categoria'">
+        <form @submit.prevent="guardarCategoria">
         <h2>Crear Categoria</h2>
 
 
         <label for="numero_serie">Categoria:</label>
         <input v-model="categoria" type="text" placeholder="Ingrese el nombre de la categoria">
+        <p v-if="errorCategoria" class="error-text">{{ errorCategoria }}</p>
 
         <hr>
 
-        <button class="guardarBtn" @click="guardarCategoria">Guardar</button>
-
+        <button class="guardarBtn" type="submit">Guardar</button>
+      </form>
 
       </div>
 
@@ -127,7 +137,11 @@ export default {
         nombre_modelo: "",
         marca_id: "",
         categoria_id: ""
-      }
+      },
+      errorMarca: "",
+      errorCategoria: "",
+      errorModelo: "",
+      errorEquipo: ""
     };
   },
   mounted() {
@@ -155,9 +169,10 @@ export default {
     },
 
     async guardarEquipo() {
+      this.errorEquipo = ""; // Reset error message
       const { numero_serie, categoria_id, modelo_id } = this.nuevoEquipo;
       if (!numero_serie || !categoria_id || !modelo_id) {
-        alert("Todos los campos son obligatorios.");
+       this.errorEquipo = "Todos los campos son obligatorios.";
         return;
       }
 
@@ -179,7 +194,6 @@ export default {
         );
 
         console.log(response.data);
-        alert("Equipo agregado correctamente");
         this.$emit("cerrarModal");
       } catch (error) {
         console.error("Error al guardar el equipo:", error);
@@ -187,8 +201,9 @@ export default {
     },
 
     async guardarMarca() {
+      this.errorMarca = ""; // Reset error message
       if (!this.marca) {
-        alert("El campo Marca es obligatorio.");
+        this.errorMarca ="El campo Marca es obligatorio.";
         return;
       }
 
@@ -207,16 +222,17 @@ export default {
         );
 
         console.log(response.data);
-        alert("Marca agregada correctamente");
+        // alert("Marca agregada correctamente");
       } catch (error) {
         console.error("Error al guardar la marca:", error);
       }
 
     },
     async guardarCategoria() {
+      this.errorCategoria = ""; // Reset error message
       if (!this.categoria) {
-        alert("El campo Categoria es obligatorio.");
-        return;
+        this.errorCategoria ="El campo categoria es obligatorio.";
+          return;
       }
 
       try {
@@ -234,16 +250,17 @@ export default {
         );
 
         console.log(response.data);
-        alert("Categoria agregada correctamente");
+        // alert("Categoria agregada correctamente");
       } catch (error) {
         console.error("Error al guardar la categoria:", error);
       }
 
     },
     async guardarModelo() {
+      this.errorModelo = ""; // Reset error message
       const { nombre_modelo, marca_id, categoria_id } = this.nuevoModelo;
       if (!nombre_modelo || !marca_id || !categoria_id) {
-        alert("Todos los campos son obligatorios.");
+        this.errorModelo="Todos los campos son obligatorios.";
         return;
       }
 
@@ -264,7 +281,7 @@ export default {
         );
 
         console.log(response.data);
-        alert("Modelo agregado correctamente");
+        // alert("Modelo agregado correctamente");
       } catch (error) {
         console.error("Error al guardar el modelo:", error);
       }
@@ -275,6 +292,12 @@ export default {
 </script>
 
 <style scoped>
+.error-text {
+  color: red;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
+
 .modal {
   position: fixed;
   top: 0;
