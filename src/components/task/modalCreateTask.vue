@@ -19,6 +19,7 @@
         </option>
       </select>
       <div v-if="errorTask" class="error-text">{{ errorTask }}</div>
+      <div v-if="validateTask" class="error-text">{{ validateTask }}</div>
       <div class="modal-buttons">
         
         <button @click="$emit('cerrarModalTask')">Cancelar</button>
@@ -44,6 +45,7 @@ export default {
         usuario_id: ""
       },
       errorTask:"",
+      validateTask:"",
     };
   },
   mounted() {
@@ -60,6 +62,7 @@ export default {
     },
     async crearTarea() {
       this.errorTask = "";
+      this.validateTask = "";
       const { inventario_id, descripcion, usuario_id } = this.nuevaTarea;
       if (!inventario_id || !descripcion || !usuario_id) {
         this.errorTask="Todos los campos son obligatorios";
@@ -78,13 +81,13 @@ export default {
           { headers: { "Content-Type": "multipart/form-data" } }
         );
 
-        console.log("Tarea creada:", response.data);
+        
         // alert("Tarea creada con éxito");
-
+        this.validateTask=(response.data);
         // Limpiar formulario ya que no vamos a cerrar el modal automaticamente.
         this.nuevaTarea = { inventario_id: "", descripcion: "", usuario_id: "" };
         
-        this.$emit("cerrarModalTask");
+        // this.$emit("cerrarModalTask");
       } catch (error) {
         console.error("Error al guardar tarea:", error);
       }
