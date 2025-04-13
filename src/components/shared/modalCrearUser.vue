@@ -48,6 +48,7 @@
                     </select>
 
                     <div v-if="errorUser" class="error-text">{{ errorUser }}</div>
+                    <div v-if="validateNewUser" class="validate-text">{{ validateNewUser }}</div>
 
                     <button class="guardarBtn" type="submit">Guardar</button>
                 </form>
@@ -94,6 +95,7 @@ export default {
             errorRolUser: "",
             errorPasswordUser: "",
             ValidatePasswordUser: "",
+            validateNewUser: "",
             opcionSeleccionada: "password",
             mostrarCrearUsuario: true,
             mostrarModUser: false,
@@ -156,6 +158,7 @@ export default {
         },
         guardarUser() {
             this.errorUser = "";
+            this.validateNewUser = "";
             const { nombre, apellidos, email, password, rol_id } = this.nuevoUser;
             if (!nombre || !apellidos || !email || !password || !rol_id) {
                 this.errorUser = "Todos los campos son obligatorios";
@@ -172,7 +175,15 @@ export default {
             axios.post("http://localhost/BDD-MedicalEquipment/controller/users/create_users.php", formData)
                 .then(response => {
                     console.log("Usuario creado:", response.data);
-                    this.cargarUsuarios();
+                    this.cargarUsuarios()
+                    this.nuevoUser = {
+                        nombre: "",
+                        apellidos: "",
+                        email: "",
+                        password: "",
+                        rol_id: "",
+                    };
+                    this.validateNewUser = "Usuario creado correctamente";
                 })
                 .catch(error => {
                     console.error("Error creando usuario:", error);
