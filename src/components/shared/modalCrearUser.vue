@@ -5,7 +5,7 @@
             <select v-model="opcionSeleccionada" @change="cambiarOpcion">
                 <option value="password">Modificar Password</option>
                 <option v-if="rolId == '1'" value="crear">Crear Usuario</option>
-                <option v-if="rolId == '1'" value="mod">Modificar Usuario</option>
+                <option v-if="rolId == '1'" value="mod">Modificar Rol</option>
                 
             </select>
 
