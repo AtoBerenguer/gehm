@@ -6,23 +6,27 @@
                 <option value="password">Modificar Password</option>
                 <option v-if="rolId == '1'" value="crear">Crear Usuario</option>
                 <option v-if="rolId == '1'" value="mod">Modificar Rol</option>
-                
+
             </select>
 
-            <div v-if="mostrarModPassword" class="modUsers">
-                <form @submit.prevent="actualizarPasswordUser">
+            <div v-if="mostrarModPassword">
+                <div v-if="id_usuario != 1" class="modUsers">
+                    <form @submit.prevent="actualizarPasswordUser">
+                        <h2>Modificar contraseña</h2>
+                        <div>
+                            <label for="password">Password:</label>
+                            <input v-model="nuevoUser.password" type="password" placeholder="Ingrese el password">
 
+                            <div v-if="errorPasswordUser" class="error-text">{{ errorPasswordUser }}</div>
+                            <div v-if="ValidatePasswordUser" class="validate-text">{{ ValidatePasswordUser }}</div>
+                            <button class="guardarBtn" type="submit">Actualizar</button>
+                        </div>
+                    </form>
+                </div>
+                <div v-else class="modUsers">
                     <h2>Modificar contraseña</h2>
-                    
-                    <label for="password">Password:</label>
-                    <input v-model="nuevoUser.password" type="password" placeholder="Ingrese el password">
-
-
-                    <div v-if="errorPasswordUser" class="error-text">{{ errorPasswordUser }}</div>
-                    <div v-if="ValidatePasswordUser" class="validate-text">{{ ValidatePasswordUser }}</div>
-                    <button class="guardarBtn" type="submit">Actualizar</button>
-
-                </form>
+                    <p class="error-text">USUARIO ADMIN NO MODIFICABLE</p>
+                </div>
             </div>
 
             <div v-if="mostrarCrearUsuario" class="crearUser">
@@ -74,7 +78,7 @@
                 </form>
             </div>
 
-            
+
 
 
             <div class="modal-buttons">
@@ -102,7 +106,7 @@ export default {
             mostrarModPassword: false,
             usuarioSeleccionado: null,
             rolId: null,
-            id_usuario:null,
+            id_usuario: null,
             nuevoUser: {
                 nombre: "",
                 apellidos: "",
@@ -126,8 +130,8 @@ export default {
         this.rolId = localStorage.getItem("rol_id");
         this.cambiarOpcion();
         this.id_usuario = localStorage.getItem("usuario_id");
-        
-        
+
+
     },
     methods: {
         cambiarOpcion() {
@@ -211,14 +215,14 @@ export default {
                 });
 
         },
-        actualizarPasswordUser(){
+        actualizarPasswordUser() {
             this.errorPasswordUser = "";
             const { password } = this.nuevoUser;
             if (!password) {
                 this.errorPasswordUser = "Contraseña obligaria";
                 return;
             }
-            if( password.length < 5){
+            if (password.length < 5) {
                 this.errorPasswordUser = "La contraseña debe tener al menos 5 caracteres";
                 return;
             }
@@ -231,12 +235,12 @@ export default {
                 .then(response => {
                     console.log(response.data);
                     this.cargarUsuarios();
-                    this.ValidatePasswordUser ="Contraseña actualizada correctamente";
+                    this.ValidatePasswordUser = "Contraseña actualizada correctamente";
                 })
                 .catch(error => {
                     console.error("Error actualizando contraseña de usuario:", error);
                 });
-                this.nuevoUser.password = "";
+            this.nuevoUser.password = "";
         }
 
     }
@@ -244,12 +248,13 @@ export default {
 </script>
 
 <style scoped>
-.validate-text{
+.validate-text {
     color: green;
     font-size: 0.9rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
 .error-text {
     color: red;
     font-size: 0.9rem;
