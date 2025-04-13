@@ -14,10 +14,11 @@
 
       <label for="tecnico_id">Técnico</label>
       <select v-model="nuevaTarea.usuario_id">
-        <option v-for="tecnico in tecnicos" :key="tecnico.id_usuario" :value="tecnico.id_usuario">
+        <option v-for="tecnico in tecnicos.filter(t => t.id_usuario !== '1')" :key="tecnico.id_usuario" :value="tecnico.id_usuario">
           {{ tecnico.id_usuario }} - {{ tecnico.nombre }} {{ tecnico.apellidos }}
         </option>
       </select>
+
       <div v-if="errorTask" class="error-text">{{ errorTask }}</div>
       <div v-if="validateTask" class="error-text">{{ validateTask }}</div>
       <div class="modal-buttons">
