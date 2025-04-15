@@ -37,6 +37,8 @@
             {{ modelo.nombre_modelo }}
           </option>
         </select>
+        <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
+
         <p v-if="errorEquipo" class="error-text">{{ errorEquipo }}</p>
         <hr>
         <button class="guardarBtn" type="submit">Guardar</button>
@@ -52,6 +54,7 @@
         <label for="numero_serie">Marca:</label>
         <input v-model="marca" type="text" placeholder="Ingrese el nombre de la Marca">
         <p v-if="errorMarca" class="error-text">{{ errorMarca }}</p>
+        <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
         <hr>
 
         <button class="guardarBtn" type="submit">Guardar</button>
@@ -85,6 +88,8 @@
           </option>
         </select>
         <hr>
+        <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
+
         <p v-if="errorModelo" class="error-text">{{ errorModelo }}</p>
 
         <button class="guardarBtn" type="submit">Guardar</button>
@@ -100,7 +105,8 @@
         <label for="numero_serie">Categoria:</label>
         <input v-model="categoria" type="text" placeholder="Ingrese el nombre de la categoria">
         <p v-if="errorCategoria" class="error-text">{{ errorCategoria }}</p>
-
+        <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
+  
         <hr>
 
         <button class="guardarBtn" type="submit">Guardar</button>
@@ -142,7 +148,8 @@ export default {
       errorMarca: "",
       errorCategoria: "",
       errorModelo: "",
-      errorEquipo: ""
+      errorEquipo: "",
+      validateCreate:'',
     };
   },
   mounted() {
@@ -170,6 +177,7 @@ export default {
     },
 
     async guardarEquipo() {
+      this.validateCreate = ""; // Reset error message
       this.errorEquipo = ""; // Reset error message
       const { numero_serie, categoria_id, modelo_id } = this.nuevoEquipo;
       if (!numero_serie || !categoria_id || !modelo_id) {
@@ -193,15 +201,21 @@ export default {
             }
           }
         );
-
+        
+        this.validateCreate =(response.data);
         console.log(response.data);
-        this.$emit("cerrarModal");
+        this.nuevoEquipo = {
+          numero_serie: "",
+          categoria_id: "",
+          modelo_id: ""
+        };
       } catch (error) {
         console.error("Error al guardar el equipo:", error);
       }
     },
 
     async guardarMarca() {
+      this.validateCreate = ""; // Reset error message
       this.errorMarca = ""; // Reset error message
       if (!this.marca) {
         this.errorMarca ="El campo Marca es obligatorio.";
@@ -221,7 +235,7 @@ export default {
             }
           }
         );
-
+        this.validateCreate =(response.data);
         console.log(response.data);
         // alert("Marca agregada correctamente");
       } catch (error) {
@@ -230,6 +244,7 @@ export default {
 
     },
     async guardarCategoria() {
+      this.validateCreate = ""; // Reset error message
       this.errorCategoria = ""; // Reset error message
       if (!this.categoria) {
         this.errorCategoria ="El campo categoria es obligatorio.";
@@ -251,13 +266,14 @@ export default {
         );
 
         console.log(response.data);
-        // alert("Categoria agregada correctamente");
+        this.validateCreate =(response.data);
       } catch (error) {
         console.error("Error al guardar la categoria:", error);
       }
 
     },
     async guardarModelo() {
+      this.validateCreate = ""; // Reset error message
       this.errorModelo = ""; // Reset error message
       const { nombre_modelo, marca_id, categoria_id } = this.nuevoModelo;
       if (!nombre_modelo || !marca_id || !categoria_id) {
@@ -280,7 +296,7 @@ export default {
             }
           }
         );
-
+        this.validateCreate =(response.data);
         console.log(response.data);
         // alert("Modelo agregado correctamente");
       } catch (error) {
@@ -293,6 +309,11 @@ export default {
 </script>
 
 <style scoped>
+.validate-text{
+  color: green;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
 .error-text {
   color: red;
   font-size: 0.9rem;

@@ -63,7 +63,7 @@
                     <h2>Modificar rol de usuario</h2>
                     <label for="id_usuario">Usuarios: </label>
                     <select v-model="updateUser.id_usuario" name="id_usuario" id="id_usuario">
-                        <option v-for="usuario in usuarios" :key="usuario.id_usuario" :value="usuario.id_usuario">
+                        <option v-for="usuario in usuarios.filter(u => u.id_usuario !== '1')" :key="usuario.id_usuario" :value="usuario.id_usuario">
                             {{ usuario.id_usuario }} - {{ usuario.nombre }} {{ usuario.apellidos }}
                         </option>
                     </select>
@@ -73,6 +73,7 @@
                         <option value="2">Supervisor</option>
                         <option value="3">Tecnico</option>
                     </select>
+                    <div v-if="validateRol" class="validate-text">{{ validateRol }}</div>
                     <div v-if="errorRolUser" class="error-text">{{ errorRolUser }}</div>
                     <button class="guardarBtn" type="submit">Actualizar</button>
                 </form>
@@ -98,6 +99,7 @@ export default {
             errorUser: "",
             errorRolUser: "",
             errorPasswordUser: "",
+            validateRol:"",
             ValidatePasswordUser: "",
             validateNewUser: "",
             opcionSeleccionada: "password",
@@ -178,7 +180,7 @@ export default {
 
             axios.post("http://localhost/BDD-MedicalEquipment/controller/users/create_users.php", formData)
                 .then(response => {
-                    console.log("Usuario creado:", response.data);
+                    // console.log("Usuario creado:", response.data);
                     this.cargarUsuarios()
                     this.nuevoUser = {
                         nombre: "",
@@ -187,13 +189,16 @@ export default {
                         password: "",
                         rol_id: "",
                     };
-                    this.validateNewUser = "Usuario creado correctamente";
+                    this.validateNewUser = (response.data);
+                    
                 })
                 .catch(error => {
+                    
                     console.error("Error creando usuario:", error);
                 });
         },
         actualizarRolUser() {
+            this.validateRol = "";
             this.errorRolUser = "";
             const { id_usuario, rol_id } = this.updateUser;
             if (!id_usuario || !rol_id) {
@@ -209,6 +214,7 @@ export default {
                 .then(response => {
                     console.log(response.data);
                     this.cargarUsuarios();
+                    this.validateRol = 'Usuario actualizado correctamente';
                 })
                 .catch(error => {
                     console.error("Error actualizando rol de usuario:", error);
@@ -249,7 +255,7 @@ export default {
 
 <style scoped>
 .validate-text {
-    color: green;
+    color: rgb(128, 117, 0);
     font-size: 0.9rem;
     margin-top: 1rem;
     margin-bottom: 1rem;

@@ -67,6 +67,7 @@ export default {
             }
         },
         seleccionarObjeto(item) {
+            console.log(item);
            
             this.$emit("objetoSeleccionado", item);
             

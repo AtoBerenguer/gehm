@@ -8,6 +8,7 @@
             <p><strong>Estado:</strong> {{ tarea.estado }}</p>
             <p><strong>Descripción averia:</strong> {{ tarea.averia }}</p>
             <p><strong>Comentario técnico:</strong> {{ tarea.comentario }}</p>
+            <p><strong>Técnico:</strong> {{ tarea.usuario }}</p>
 
 
             <form @submit.prevent="actualizarComentario">
@@ -17,7 +18,8 @@
                     <button class="updateBtn" type="submit">Actualizar</button>
                 </div>
             </form>
-            <p v-if="avisoUpdate" class="error-text">{{ avisoUpdate }}</p>
+            <p v-if="avisoUpdate" class="validate-text">{{ avisoUpdate }}</p>
+            <p v-if="errorUpdate" class="error-text">{{ errorUpdate }}</p>
 
             <div class="Buttons">
                 <button class="closeBtn" @click="$emit('cerrarModalTareaSelect')">X</button>
@@ -39,6 +41,7 @@ export default {
             roleId: null,
             comentario: '',
             avisoUpdate: '',
+            errorUpdate: '',
         };
     },
     mounted() {
@@ -48,9 +51,9 @@ export default {
     methods: {
         actualizarComentario() {
             this.avisoUpdate = ''; // Reiniciar el aviso de actualización
-
+            this.errorUpdate='';
             if (this.comentario.trim() === '') {
-                this.avisoUpdate='El comentario no puede estar vacío.';
+                this.errorUpdate='El comentario no puede estar vacío.';
                 return;
             }
 
@@ -89,6 +92,11 @@ export default {
 </script>
 
 <style scoped>
+.validate-text{
+  color: green;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
 .error-text {
   color: red;
   font-size: 0.9rem;

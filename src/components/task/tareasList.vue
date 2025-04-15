@@ -65,6 +65,7 @@ export default {
         nombreModelo: "Nombre Modelo",
         averia: "Avería",
         estado: "Estado",
+       
       },
     };
   },
@@ -110,7 +111,8 @@ export default {
             averia: task.descripcion,
             estado: task.estado,
             nombre_categoria: task.nombre_categoria,
-            comentario: task.comentario
+            comentario: task.comentario,
+            usuario:task.nombre_usuario + ' ' + task.apellidos_usuario
           }));
         })
         .catch(error => {
@@ -129,8 +131,9 @@ export default {
             averia: task.descripcion,
             estado: task.estado,
             nombre_categoria: task.nombre_categoria,
-            comentario: task.comentario
-          }));
+            comentario: task.comentario,
+            usuario:task.nombre_usuario + ' ' + task.apellidos_usuario
+          }));  
         })
         .catch(error => {
           console.log("Error: ", error);

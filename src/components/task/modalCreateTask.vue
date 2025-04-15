@@ -20,7 +20,7 @@
       </select>
 
       <div v-if="errorTask" class="error-text">{{ errorTask }}</div>
-      <div v-if="validateTask" class="error-text">{{ validateTask }}</div>
+      <div v-if="validateTask" class="validate-text">{{ validateTask }}</div>
       <div class="modal-buttons">        
         <button @click="$emit('cerrarModalTask')">Cancelar</button>
         <button type="submit">Guardar</button>
@@ -98,6 +98,11 @@ export default {
 
   
   <style scoped>
+.validate-text{
+  color: green;
+  font-size: 0.9rem;
+  margin-top: 4px;
+}
 .error-text {
   color: red;
   font-size: 0.9rem;
