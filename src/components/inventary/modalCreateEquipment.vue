@@ -6,111 +6,111 @@
         <option value="categoria">Crear Categoria</option>
         <option value="marca">Crear Marca</option>
         <option value="modelo">Crear Modelo</option>
-        
+
       </select>
 
 
       <div v-if="opcionSeleccionada === 'equipo'">
         <form @submit.prevent="guardarEquipo">
-        <h2>Crear equipo</h2>
+          <h2>Crear equipo</h2>
 
 
-        <label for="numero_serie">Número de Serie:</label>
-        <input v-model="nuevoEquipo.numero_serie" type="text" placeholder="Ingrese el número de serie">
+          <label for="numero_serie">Número de Serie:</label>
+          <input v-model="nuevoEquipo.numero_serie" type="text" placeholder="Ingrese el número de serie">
 
-        <hr>
-
-
-        <label for="categoria_id">Categoría:</label>
-        <select v-model="nuevoEquipo.categoria_id" @change="cargarModelos">
-          <option v-for="categoria in categorias" :key="categoria.id_categoria" :value="categoria.id_categoria">
-            {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
-          </option>
-        </select>
-
-        <hr>
+          <hr>
 
 
-        <label for="modelo_id">Modelo:</label>
-        <select v-model="nuevoEquipo.modelo_id" :disabled="!nuevoEquipo.categoria_id">
-          <option v-for="modelo in modelos" :key="modelo.id_modelo" :value="modelo.id_modelo">
-            {{ modelo.nombre_modelo }}
-          </option>
-        </select>
-        <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
+          <label for="categoria_id">Categoría:</label>
+          <select v-model="nuevoEquipo.categoria_id" @change="cargarModelos">
+            <option v-for="categoria in categorias" :key="categoria.id_categoria" :value="categoria.id_categoria">
+              {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
+            </option>
+          </select>
 
-        <p v-if="errorEquipo" class="error-text">{{ errorEquipo }}</p>
-        <hr>
-        <button class="guardarBtn" type="submit">Guardar</button>
+          <hr>
 
-      </form>
+
+          <label for="modelo_id">Modelo:</label>
+          <select v-model="nuevoEquipo.modelo_id" :disabled="!nuevoEquipo.categoria_id">
+            <option v-for="modelo in modelos" :key="modelo.id_modelo" :value="modelo.id_modelo">
+              {{ modelo.nombre_modelo }}
+            </option>
+          </select>
+          <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
+
+          <p v-if="errorEquipo" class="error-text">{{ errorEquipo }}</p>
+          <hr>
+          <button class="guardarBtn" type="submit">Guardar</button>
+
+        </form>
       </div>
-      
+
       <div v-if="opcionSeleccionada === 'marca'">
         <form @submit.prevent="guardarMarca">
-        <h2>Crear Marca</h2>
+          <h2>Crear Marca</h2>
 
 
-        <label for="numero_serie">Marca:</label>
-        <input v-model="marca" type="text" placeholder="Ingrese el nombre de la Marca">
-        <p v-if="errorMarca" class="error-text">{{ errorMarca }}</p>
-        <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
-        <hr>
+          <label for="numero_serie">Marca:</label>
+          <input v-model="marca" type="text" placeholder="Ingrese el nombre de la Marca">
+          <p v-if="errorMarca" class="error-text">{{ errorMarca }}</p>
+          <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
+          <hr>
 
-        <button class="guardarBtn" type="submit">Guardar</button>
+          <button class="guardarBtn" type="submit">Guardar</button>
 
-      </form>
+        </form>
       </div>
       <div v-if="opcionSeleccionada === 'modelo'">
         <form @submit.prevent="guardarModelo">
-        <h2>Crear Modelo</h2>
+          <h2>Crear Modelo</h2>
 
 
-        <label for="nombre_modelo">Nombre modelo:</label>
-        <input v-model="nuevoModelo.nombre_modelo" type="text" placeholder="Ingrese el modelo">
+          <label for="nombre_modelo">Nombre modelo:</label>
+          <input v-model="nuevoModelo.nombre_modelo" type="text" placeholder="Ingrese el modelo">
 
-        <hr>
+          <hr>
 
 
-        <label for="marca">Marcas:</label>
-        <select v-model="nuevoModelo.marca_id">
-          <option v-for="marca in marcas" :key="marca.id_marca" :value="marca.id_marca">
-            {{ marca.id_marca }} - {{ marca.nombre_marca }}
-          </option>
-        </select>
+          <label for="marca">Marcas:</label>
+          <select v-model="nuevoModelo.marca_id">
+            <option v-for="marca in marcas" :key="marca.id_marca" :value="marca.id_marca">
+              {{ marca.id_marca }} - {{ marca.nombre_marca }}
+            </option>
+          </select>
 
-        <hr>
+          <hr>
 
-        <label for="categoria_id">Categoría:</label>
-        <select v-model="nuevoModelo.categoria_id">
-          <option v-for="categoria in categorias" :key="categoria.id_categoria" :value="categoria.id_categoria">
-            {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
-          </option>
-        </select>
-        <hr>
-        <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
+          <label for="categoria_id">Categoría:</label>
+          <select v-model="nuevoModelo.categoria_id">
+            <option v-for="categoria in categorias" :key="categoria.id_categoria" :value="categoria.id_categoria">
+              {{ categoria.id_categoria }} - {{ categoria.nombre_categoria }}
+            </option>
+          </select>
+          <hr>
+          <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
 
-        <p v-if="errorModelo" class="error-text">{{ errorModelo }}</p>
+          <p v-if="errorModelo" class="error-text">{{ errorModelo }}</p>
 
-        <button class="guardarBtn" type="submit">Guardar</button>
+          <button class="guardarBtn" type="submit">Guardar</button>
 
-      </form>
+        </form>
       </div>
 
       <div v-if="opcionSeleccionada === 'categoria'">
         <form @submit.prevent="guardarCategoria">
-        <h2>Crear Categoria</h2>
+          <h2>Crear Categoria</h2>
 
 
-        <label for="numero_serie">Categoria:</label>
-        <input v-model="categoria" type="text" placeholder="Ingrese el nombre de la categoria">
-        <p v-if="errorCategoria" class="error-text">{{ errorCategoria }}</p>
-        <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
-  
-        <hr>
+          <label for="numero_serie">Categoria:</label>
+          <input v-model="categoria" type="text" placeholder="Ingrese el nombre de la categoria">
+          <p v-if="errorCategoria" class="error-text">{{ errorCategoria }}</p>
+          <p v-if="validateCreate" class="validate-text">{{ validateCreate }}</p>
 
-        <button class="guardarBtn" type="submit">Guardar</button>
-      </form>
+          <hr>
+
+          <button class="guardarBtn" type="submit">Guardar</button>
+        </form>
 
       </div>
 
@@ -128,7 +128,7 @@ export default {
   props: ["mostrarModal"],
   data() {
     return {
-      opcionSeleccionada: "equipo", 
+      opcionSeleccionada: "equipo",
       nuevoEquipo: {
         numero_serie: "",
         categoria_id: "",
@@ -149,7 +149,7 @@ export default {
       errorCategoria: "",
       errorModelo: "",
       errorEquipo: "",
-      validateCreate:'',
+      validateCreate: '',
     };
   },
   mounted() {
@@ -157,6 +157,25 @@ export default {
     this.cargarMarcas();
   },
   methods: {
+    cambiarOpcion(){ // DE ESTA MANERA AL CAMBIAR DE OPCION RESETEAMOS TODOS LOS FORMULARIOS PARA PODER RECARGAR SU INFORMACION Y VACIAMOS LOS TEXTOS DE LOS ERRORES Y VALIDACIONES
+      this.validateCreate = ""; 
+      this.nuevoEquipo = {
+        numero_serie: "",
+        categoria_id: "",
+        modelo_id: ""
+      };
+      this.marca = "";
+      this.categoria = "";
+      this.nuevoModelo = {
+        nombre_modelo: "",
+        marca_id: "",
+        categoria_id: ""
+      };
+      this.errorMarca = "";
+      this.errorCategoria = "";
+      this.errorModelo = "";
+      this.errorEquipo = "";
+    },
     async cargarCategorias() {
       const response = await axios.get("http://localhost/BDD-MedicalEquipment/controller/categories/getAllCategories.php");
       this.categorias = response.data;
@@ -172,7 +191,7 @@ export default {
     async cargarMarcas() {
       const response = await axios.get("http://localhost/BDD-MedicalEquipment/controller/brands/getBrands.php");
       this.marcas = response.data;
-      
+
 
     },
 
@@ -181,12 +200,12 @@ export default {
       this.errorEquipo = ""; // Reset error message
       const { numero_serie, categoria_id, modelo_id } = this.nuevoEquipo;
       if (!numero_serie || !categoria_id || !modelo_id) {
-       this.errorEquipo = "Todos los campos son obligatorios.";
+        this.errorEquipo = "Todos los campos son obligatorios.";
         return;
       }
 
       try {
-        
+
         let formData = new FormData();
         formData.append("categoria_id", categoria_id);
         formData.append("modelo_id", modelo_id);
@@ -196,13 +215,13 @@ export default {
           "http://localhost/BDD-MedicalEquipment/controller/inventary/create_equipment.php",
           formData,
           {
-            headers: { 
+            headers: {
               "Content-Type": "multipart/form-data"
             }
           }
         );
-        
-        this.validateCreate =(response.data);
+
+        this.validateCreate = (response.data);
         console.log(response.data);
         this.nuevoEquipo = {
           numero_serie: "",
@@ -218,7 +237,7 @@ export default {
       this.validateCreate = ""; // Reset error message
       this.errorMarca = ""; // Reset error message
       if (!this.marca) {
-        this.errorMarca ="El campo Marca es obligatorio.";
+        this.errorMarca = "El campo Marca es obligatorio.";
         return;
       }
 
@@ -230,13 +249,16 @@ export default {
           "http://localhost/BDD-MedicalEquipment/controller/brands/CRUDBRAND.php",
           formData,
           {
-            headers: { 
+            headers: {
               "Content-Type": "multipart/form-data"
             }
           }
         );
-        this.validateCreate =(response.data);
+        this.validateCreate = (response.data);
+        await this.cargarMarcas(); 
+
         console.log(response.data);
+       
         // alert("Marca agregada correctamente");
       } catch (error) {
         console.error("Error al guardar la marca:", error);
@@ -247,8 +269,8 @@ export default {
       this.validateCreate = ""; // Reset error message
       this.errorCategoria = ""; // Reset error message
       if (!this.categoria) {
-        this.errorCategoria ="El campo categoria es obligatorio.";
-          return;
+        this.errorCategoria = "El campo categoria es obligatorio.";
+        return;
       }
 
       try {
@@ -259,14 +281,16 @@ export default {
           "http://localhost/BDD-MedicalEquipment/controller/categories/postCategory.php",
           formData,
           {
-            headers: { 
+            headers: {
               "Content-Type": "multipart/form-data"
             }
           }
         );
-
+        await this.cargarCategorias();
+        this.categoria = ""; 
         console.log(response.data);
-        this.validateCreate =(response.data);
+        this.validateCreate = (response.data);
+        // this.$emit("cerrarModal");
       } catch (error) {
         console.error("Error al guardar la categoria:", error);
       }
@@ -277,7 +301,7 @@ export default {
       this.errorModelo = ""; // Reset error message
       const { nombre_modelo, marca_id, categoria_id } = this.nuevoModelo;
       if (!nombre_modelo || !marca_id || !categoria_id) {
-        this.errorModelo="Todos los campos son obligatorios.";
+        this.errorModelo = "Todos los campos son obligatorios.";
         return;
       }
 
@@ -291,13 +315,24 @@ export default {
           "http://localhost/BDD-MedicalEquipment/controller/models/createModel.php",
           formData,
           {
-            headers: { 
+            headers: {
               "Content-Type": "multipart/form-data"
             }
           }
         );
-        this.validateCreate =(response.data);
+        this.validateCreate = (response.data);
+        if (this.opcionSeleccionada === "equipo" && this.nuevoEquipo.categoria_id) {
+          await this.cargarModelos(); 
+        }
+
+        this.nuevoModelo = {
+          nombre_modelo: "",
+          marca_id: "",
+          categoria_id: ""
+        };
         console.log(response.data);
+        // this.$emit("cerrarModal");
+
         // alert("Modelo agregado correctamente");
       } catch (error) {
         console.error("Error al guardar el modelo:", error);
@@ -309,11 +344,12 @@ export default {
 </script>
 
 <style scoped>
-.validate-text{
+.validate-text {
   color: green;
   font-size: 0.9rem;
   margin-top: 4px;
 }
+
 .error-text {
   color: red;
   font-size: 0.9rem;
