@@ -31,7 +31,7 @@ export default {
     name: "HeaderComponent",
     data() {
         return {
-            text: "GMHM",
+            text: "GEHM",
             menuOpen: false, // Estado del menú
         };
     },
