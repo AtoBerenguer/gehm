@@ -52,7 +52,7 @@ export default {
         actualizarComentario() {
             this.avisoUpdate = ''; // Reiniciar el aviso de actualización
             this.errorUpdate='';
-            if (this.comentario.trim() === '') {
+            if (this.comentario.trim() === '') { //validación para que el comentario no este vacío
                 this.errorUpdate='El comentario no puede estar vacío.';
                 return;
             }
