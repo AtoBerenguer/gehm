@@ -196,8 +196,8 @@ export default {
     },
 
     async guardarEquipo() {
-      this.validateCreate = ""; // Reset error message
-      this.errorEquipo = ""; // Reset error message
+      this.validateCreate = ""; //En caso de que el reset de cambiar opcion no entre, entraráan estos al usar la funcion.
+      this.errorEquipo = ""; 
       const { numero_serie, categoria_id, modelo_id } = this.nuevoEquipo;
       if (!numero_serie || !categoria_id || !modelo_id) {
         this.errorEquipo = "Todos los campos son obligatorios.";
@@ -234,8 +234,8 @@ export default {
     },
 
     async guardarMarca() {
-      this.validateCreate = ""; // Reset error message
-      this.errorMarca = ""; // Reset error message
+      this.validateCreate = ""; //En caso de que el reset de cambiar opcion no entre, entraráan estos al usar la funcion.
+      this.errorMarca = ""; 
       if (!this.marca) {
         this.errorMarca = "El campo Marca es obligatorio.";
         return;
@@ -266,8 +266,8 @@ export default {
 
     },
     async guardarCategoria() {
-      this.validateCreate = ""; // Reset error message
-      this.errorCategoria = ""; // Reset error message
+      this.validateCreate = ""; //En caso de que el reset de cambiar opcion no entre, entraráan estos al usar la funcion.
+      this.errorCategoria = ""; 
       if (!this.categoria) {
         this.errorCategoria = "El campo categoria es obligatorio.";
         return;
@@ -297,8 +297,8 @@ export default {
 
     },
     async guardarModelo() {
-      this.validateCreate = ""; // Reset error message
-      this.errorModelo = ""; // Reset error message
+      this.validateCreate = ""; //En caso de que el reset de cambiar opcion no entre, entraráan estos al usar la funcion.
+      this.errorModelo = ""; 
       const { nombre_modelo, marca_id, categoria_id } = this.nuevoModelo;
       if (!nombre_modelo || !marca_id || !categoria_id) {
         this.errorModelo = "Todos los campos son obligatorios.";
