@@ -32,12 +32,12 @@ export default {
     data() {
         return {
             text: "GEMH",
-            menuOpen: false, // Estado del menú
+            menuOpen: false, // Estado del menú inicial para que esté cerrado
         };
     },
     methods: {
         logout() {
-            localStorage.clear();
+            localStorage.clear();  //Limpiamos el localstorage para no tener nada del usuario anterior
             this.menuOpen = false; // Cierra el menú al cerrar sesión
         },
         toggleMenu() {
