@@ -132,11 +132,11 @@ export default {
         this.rolId = localStorage.getItem("rol_id");
         this.cambiarOpcion();
         this.id_usuario = localStorage.getItem("usuario_id");
-
+        //Cuando se cargue este componente se cargara la lista de usuarios y recogeremos los datos del localstorage para filtrar información.
 
     },
     methods: {
-        cambiarOpcion() {
+        cambiarOpcion() { //Dependiendo de la opcion seleccionada se mostrara un formulario u otro.
             if (this.opcionSeleccionada === "password") {
                 this.mostrarCrearUsuario = false;
                 this.mostrarModUser = false;
@@ -152,7 +152,7 @@ export default {
             }
 
         },
-        cargarUsuarios() {
+        cargarUsuarios() { //peticion para cargar usuarios
             axios.get("http://localhost/BDD-MedicalEquipment/controller/users/getAll_users.php")
                 .then(response => {
                     this.usuarios = response.data;
@@ -166,7 +166,7 @@ export default {
             this.errorUser = "";
             this.validateNewUser = "";
             const { nombre, apellidos, email, password, rol_id } = this.nuevoUser;
-            if (!nombre || !apellidos || !email || !password || !rol_id) {
+            if (!nombre || !apellidos || !email || !password || !rol_id) { //Comprobamos que está toda la informacion necesaria para hacer la peticion a la base de datos.
                 this.errorUser = "Todos los campos son obligatorios";
                 return;
             }
