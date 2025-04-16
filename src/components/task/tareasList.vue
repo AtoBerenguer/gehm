@@ -87,9 +87,9 @@ export default {
     }
   },
   mounted() {
-
+    
     this.rolId = localStorage.getItem("rol_id");
-
+    //De esta manera llamamos a una funcion u otra dependiendo del rol del usuario.
     if (this.rolId === '1' || this.rolId === '2') {
       this.cargarTodasOT();
     } else if (this.rolId === '3') {
