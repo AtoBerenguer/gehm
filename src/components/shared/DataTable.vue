@@ -33,12 +33,12 @@ export default {
             required: true,
         },
         headers: {
-            type: Object, // key: Nombre del header 
+            type: Object, // key: Nombre del header para el encabezado
             required: true,
         },
         itemsPerPage: {
             type: Number,
-            default: 15,
+            default: 15, // Número de elementos por página por defecto 15
         },
     },
     data() {
@@ -47,11 +47,11 @@ export default {
         };
     },
     computed: {
-        totalPages() {
+        totalPages() { //El numero total de paginas sera el el total de elementos dividos por el numero de elementos por pagina por defecto 15.
             return Math.ceil(this.data.length / this.itemsPerPage);
         },
         paginatedData() {
-            const start = (this.currentPage - 1) * this.itemsPerPage;
+            const start = (this.currentPage - 1) * this.itemsPerPage; //Le damos el valor de 1 para mostrar la primera pagina de la tabla.
             return this.data.slice(start, start + this.itemsPerPage);
         },
     },
@@ -66,8 +66,8 @@ export default {
                 this.currentPage--;
             }
         },
-        seleccionarObjeto(item) {
-            console.log(item);
+        seleccionarObjeto(item) { //Cuando pulsamos usemos esta funcion enviaremos el elemento de la tabla al siguiente componente.
+            // console.log(item);
            
             this.$emit("objetoSeleccionado", item);
             
