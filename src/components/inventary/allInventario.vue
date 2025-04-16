@@ -49,7 +49,7 @@ export default {
             }
         };
     },
-    computed: {
+    computed: { //Al usar computed, las tablas se actualizan automáticamente al cambiar los el estado del filtro
         filteredEquipos() {
             return this.equipos.filter(equipo => {
                 return Object.keys(this.filters).every(key => {
